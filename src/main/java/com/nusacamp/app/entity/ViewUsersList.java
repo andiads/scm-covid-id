@@ -24,6 +24,8 @@ public class ViewUsersList {
 	private String mail;
 	@Column(name = "fullname")
 	private String fullName;
+	@Column(name = "password")
+	private String password;
 	@Column(name = "user_type")
 	private Integer userType;
 	@Column(name = "type_name")
