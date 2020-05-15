@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 15, 2020 at 04:33 PM
+-- Generation Time: May 15, 2020 at 07:19 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -224,8 +224,10 @@ INSERT INTO `user_type` (`id`, `type_name`) VALUES
 -- (See below for the actual view)
 --
 CREATE TABLE `view_distribution_list` (
-`lab_name` varchar(200)
+`id_lab` int(11)
+,`lab_name` varchar(200)
 ,`item_name` varchar(255)
+,`id_distributor` int(11)
 ,`distributor_name` varchar(64)
 ,`sto_send_time` datetime
 ,`sto_arrive_time` datetime
@@ -238,7 +240,8 @@ CREATE TABLE `view_distribution_list` (
 -- (See below for the actual view)
 --
 CREATE TABLE `view_items_list` (
-`item_name` varchar(255)
+`id_item` int(11)
+,`item_name` varchar(255)
 ,`item_packaging` varchar(30)
 ,`item_pieces_packaging` int(11)
 ,`brand_name` varchar(64)
@@ -296,7 +299,7 @@ CREATE TABLE `view_users_list` (
 --
 DROP TABLE IF EXISTS `view_distribution_list`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_distribution_list`  AS  select `labs`.`lab_name` AS `lab_name`,`item`.`item_name` AS `item_name`,`item_distributor`.`distributor_name` AS `distributor_name`,`stock_order`.`sto_send_time` AS `sto_send_time`,`stock_order`.`sto_arrive_time` AS `sto_arrive_time` from (((`labs` join `item` on(`labs`.`id_lab` = `item`.`id_item`)) join `item_distributor` on(`item`.`id_item` = `item_distributor`.`distributor_name`)) join `stock_order` on(`item`.`id_item` = `stock_order`.`id_sto`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_distribution_list`  AS  select `labs`.`id_lab` AS `id_lab`,`labs`.`lab_name` AS `lab_name`,`item`.`item_name` AS `item_name`,`item_distributor`.`id_distributor` AS `id_distributor`,`item_distributor`.`distributor_name` AS `distributor_name`,`stock_order`.`sto_send_time` AS `sto_send_time`,`stock_order`.`sto_arrive_time` AS `sto_arrive_time` from (((`labs` join `item` on(`labs`.`id_lab` = `item`.`id_item`)) join `item_distributor` on(`item`.`id_item` = `item_distributor`.`distributor_name`)) join `stock_order` on(`item`.`id_item` = `stock_order`.`id_sto`)) ;
 
 -- --------------------------------------------------------
 
@@ -305,7 +308,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `view_items_list`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_items_list`  AS  select `item`.`item_name` AS `item_name`,`item`.`item_packaging` AS `item_packaging`,`item`.`item_pieces_packaging` AS `item_pieces_packaging`,`item_brand`.`brand_name` AS `brand_name`,`item_category`.`category_name` AS `category_name` from ((`item` join `item_brand` on(`item`.`id_item` = `item_brand`.`id_brand`)) join `item_category` on(`item`.`id_item` = `item_category`.`id_category`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_items_list`  AS  select `item`.`id_item` AS `id_item`,`item`.`item_name` AS `item_name`,`item`.`item_packaging` AS `item_packaging`,`item`.`item_pieces_packaging` AS `item_pieces_packaging`,`item_brand`.`brand_name` AS `brand_name`,`item_category`.`category_name` AS `category_name` from ((`item` join `item_brand` on(`item`.`id_item` = `item_brand`.`id_brand`)) join `item_category` on(`item`.`id_item` = `item_category`.`id_category`)) ;
 
 -- --------------------------------------------------------
 
