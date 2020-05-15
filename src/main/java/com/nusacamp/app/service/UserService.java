@@ -42,8 +42,12 @@ public class UserService {
 		return this.viewUsersListRepository.findByMail(mail);
 	}
 
-	public void save(@Valid UserRegistrationDto userDto) {
-		// TODO Auto-generated method stub
+	public void save(User user) {
+		userRepository.save(user);
 		
+	}
+	
+	public User getUser(int id) {
+		return userRepository.findById(id).get();
 	}
 }

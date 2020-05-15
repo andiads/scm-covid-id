@@ -1,7 +1,5 @@
-
 package com.nusacamp.app.controller.user;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,28 +7,28 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.nusacamp.app.entity.User;
-import com.nusacamp.app.service.UserService;
+import com.nusacamp.app.entity.Lab;
+import com.nusacamp.app.service.LabService;
 
 import lombok.RequiredArgsConstructor;
 
 @Controller
-@RequestMapping("users")
+@RequestMapping("labs")
 @RequiredArgsConstructor
-public class UserController {
+public class LabController {
 
-	private final UserService userService;
-
+	private final LabService labService;
+	
+	
 	@GetMapping
 	public String index() {
-		return "redirect:/users/1";
+		return "redirect:/labs/1";
 	}
-
+	
 	@GetMapping(value = "/{pageNumber}")
-	public String listUser(@PathVariable Integer pageNumber, Model model) {
-		Page<User> page = userService.getList(pageNumber);
+	public String listLabs(@PathVariable Integer pageNumber, Model model) {
+		Page<Lab> page = labService.getList(pageNumber);
 
 		int current = page.getNumber() + 1;
 		int begin = Math.max(1, current - 5);
@@ -41,28 +39,26 @@ public class UserController {
 		model.addAttribute("endIndex", end);
 		model.addAttribute("currentIndex", current);
 
-		return "users/list";
+		return "labs/list";
 
 	}
-
+	
 	@GetMapping("/add")
-	public String addUser(Model model) {
-		model.addAttribute("users", new User());
-		return "users/form";
+	public String addLab(Model model) {
+		model.addAttribute("labs", new Lab());
+		return "labs/form";
 
 	}
 	
     @PostMapping(value = "/save")
-    public String saveUser(User user) {
-    	userService.save(user);
-        return "redirect:/users";
-
+    public String saveUser(Lab lab) {
+    	labService.saveLabs(lab);
+        return "redirect:/labs";
     }
-        
-    @GetMapping("/edit/{id}")
-    public String editUser(@PathVariable int id, Model model) {
-    	model.addAttribute("users", userService.getUser(id));
-    	return "users/form";
+    
+    @GetMapping("/edit/{idLab}")
+    public String editUser(@PathVariable int idLab, Model model) {
+    	model.addAttribute("labs", labService.getLab(idLab));
+    	return "labs/form";
     }    
-
 }
