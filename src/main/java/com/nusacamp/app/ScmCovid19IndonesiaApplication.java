@@ -1,0 +1,13 @@
+package com.nusacamp.app;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class ScmCovid19IndonesiaApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(ScmCovid19IndonesiaApplication.class, args);
+	}
+
+}

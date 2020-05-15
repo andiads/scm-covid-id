@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Implementation-Title: SCM Covid19 Indonesia
+Implementation-Version: 0.0.1-SNAPSHOT
+Build-Jdk-Spec: 1.8
+Created-By: Maven Integration for Eclipse
+

@@ -1,0 +1,51 @@
+<!-- sidebar: style can be found in sidebar.less -->
+<section class="sidebar" th:fragment="sidebar">
+    <!-- sidebar menu: : style can be found in sidebar.less -->
+    <ul class="sidebar-menu">
+        <li class="active treeview">
+            <a href="#">
+                <i class="fa fa-dashboard"></i> <span>Dashboard</span>
+            </a>
+        </li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-user"></i>
+                <span>Users Management</span>
+                <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="/users/add"><i class="fa fa-circle-o"></i> Add Users</a></li>
+            </ul>
+            <ul class="treeview-menu">
+                <li><a href="/users"><i class="fa fa-circle-o"></i> List Users</a></li>
+            </ul>
+        </li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-flask"></i>
+                <span>Labs Management</span>
+                <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="/labs/add"><i class="fa fa-circle-o"></i> Add Lab</a></li>
+            </ul>
+            <ul class="treeview-menu">
+                <li><a href="/labs"><i class="fa fa-circle-o"></i> List Labs</a></li>
+            </ul>
+        </li>
+        <li class="treeview">
+            <a href="#">
+                <i class="fa fa-clipboard-list"></i>
+                <span>Item Management</span>
+                <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="/items/add"><i class="fa fa-circle-o"></i> Add Item</a></li>
+            </ul>
+            <ul class="treeview-menu">
+                <li><a href="/items/add"><i class="fa fa-circle-o"></i> List Items</a></li>
+            </ul>
+        </li>
+    </ul>
+</section>
+<!-- /.sidebar -->
