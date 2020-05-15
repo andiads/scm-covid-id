@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 15, 2020 at 10:09 AM
+-- Generation Time: May 15, 2020 at 11:04 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.2.12
 
@@ -131,7 +131,7 @@ CREATE TABLE `user` (
   `mail` varchar(50) NOT NULL,
   `fullname` varchar(200) NOT NULL,
   `password` varchar(64) NOT NULL,
-  `user_type` int(11) NOT NULL,
+  `user_type` varchar(32) NOT NULL,
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -216,7 +216,7 @@ CREATE TABLE `view_users_list` (
 `id` int(11)
 ,`mail` varchar(50)
 ,`fullname` varchar(200)
-,`user_type` int(11)
+,`user_type` varchar(32)
 ,`type_name` varchar(20)
 );
 
