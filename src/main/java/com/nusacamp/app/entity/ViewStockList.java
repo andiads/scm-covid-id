@@ -13,6 +13,8 @@ import lombok.Data;
 @Table(name = "view_stock_list")
 public class ViewStockList {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idStockOrder;
 	private String stockSendTime;
 	private String stockArriveTime;

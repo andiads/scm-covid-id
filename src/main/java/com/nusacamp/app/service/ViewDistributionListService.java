@@ -15,12 +15,12 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ViewDistributionListService {
 
-	private final ViewDistributionRepository viewDistributionListRepo;
+	private final ViewDistributionListRepository viewDistributionListRepository;
 	
 	private static final int PAGE_SIZE = 5;
 	
 	protected JpaRepository<ViewDistributionList, Integer> getRepository(){
-		return viewDistributionListRepo;
+		return viewDistributionListRepository;
 	}
 	
 	public Page<ViewDistributionList> getList(Integer pageNumber) {
@@ -30,11 +30,9 @@ public class ViewDistributionListService {
         return getRepository().findAll(pageRequest);
 	}
 	
-	public void saveViewDistributionList(ViewDistributionList viewDistributionList) {
-		viewDistributionListRepo.save(viewDistributionList);
-	}
+	
 	
 	public ViewDistributionList getViewDistributionList(int idDistribution) {
-		return viewDistributionListRepo.findById(idDistribution).get();
+		return viewDistributionListRepository.findById(idDistribution).get();
 	}
 }

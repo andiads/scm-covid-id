@@ -5,7 +5,6 @@ import org.springframework.stereotype.Repository;
 
 import com.nusacamp.app.entity.Lab;
 
-/** @author Muhamad Sholihin **/
 
 @Repository
 public interface LabRepository extends JpaRepository<Lab, Integer>{

@@ -20,21 +20,21 @@
                 <a href="/customers" type="button" class="btn btn-box-tool"><i class="fa fa-list-ul"></i></a>
             </div>
         </div>
-        <form data-toggle="validator" role="form" th:object="${customer}" th:action="@{/customers/save}" method="post">
+        <form data-toggle="validator" role="form" th:object="${users}" th:action="@{/users/save}" method="post">
             <div class="box-body">
                 <input type="hidden" th:field="*{id}"/>
-
+				
                 <div class="form-group">
-                    <label for="Firstname">Firstname</label>
-                    <input type="text" required="true" class="form-control" th:field="*{firstname}" id="firstname" />
+                    <label for="email">Email</label>
+                    <input type="text" required="true" class="form-control" th:field="*{mail}" id="mail" />
                 </div>
                 <div class="form-group">
-                    <label for="Lastname">Lastname</label>
-                    <input type="text" required="true" class="form-control" th:field="*{lastname}" id="lastname" />
+                    <label for="Password">Password</label>
+                    <input type="password" required="true" class="form-control" th:field="*{password}" id="password" />
                 </div>
                 <div class="form-group">
-                    <label for="email">E-mail</label>
-                    <input type="email" required="true" class="form-control" th:field="*{email}" id="email" />
+                    <label for="Fullname">FullName</label>
+                    <input type="text" required="true" class="form-control" th:field="*{fullname}" id="fullname" />
                 </div>
             </div>
             <div class="box-footer">

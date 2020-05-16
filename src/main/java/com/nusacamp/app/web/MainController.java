@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import com.nusacamp.app.service.UserService;
 
-@Controller
+//@Controller
 public class MainController {
 	@Autowired
 	private UserService userService;

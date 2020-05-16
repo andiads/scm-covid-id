@@ -19,7 +19,7 @@ public class Lab {
 	@Id
 	@Column(name = "id_lab")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer idLab;
+	private int idLab;
 	@Column(name = "lab_code")
 	private String labCode;
 	@Column(name = "password")
@@ -32,14 +32,14 @@ public class Lab {
 	private String labPic;
 	@Column(name = "lab_mail")
 	private String labMail;
-	@Column(name = "created_at")
+	@Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
 	private String createdAt;
-	@Column(name = "updated_at")
+	@Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
 	private String updatedAt;
-	@Column(name = "created_by")
-	private String createdBy;
-	@Column(name = "shown")
-	private Integer shown = 1;
+	
+	private int createdBy=1;
+	private int shown=1;
+	
 	@Column(name = "lab_contact")
 	private String labContact;
 
