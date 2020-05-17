@@ -1,55 +1,116 @@
 <!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout">
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout">
 <head>
-    <title>Registration Client</title>
+<title>Registration Items</title>
 </head>
 <body>
-<section layout:fragment="header">
-    <h1>Customer registration</h1>
-    <ol class="breadcrumb">
-        <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-        <li class="active">Registration Client</li>
-    </ol>
-</section>
-<div layout:fragment="content">
-    <div class="box">
-        <div class="box-header with-border">
-            <h3 class="box-title">Form</h3>
-            <div class="box-tools pull-right">
-                <a href="/items" type="button" class="btn btn-box-tool"><i class="fa fa-list-ul"></i></a>
-            </div>
-        </div>
-        <form data-toggle="validator" role="form" th:object="${items}" th:action="@{/items/save}" method="post">
-            <div class="box-body">
-                <input type="hidden" th:field="*{idItem}"/>
-				
-                <div class="form-group">
-                    <label for="itemCode">Item Code</label>
-                    <input type="text" required="true" class="form-control" th:field="*{itemCode}" id="itemCode" />
-                </div>
-                <div class="form-group">
-                    <label for="itemName">Item Name</label>
-                    <input type="text" required="true" class="form-control" th:field="*{itemName}" id="itemName" />
-                </div>
-                <div class="form-group">
-                    <label for="itemPiecesPackaging">Pieces/Pack</label>
-                    <input type="text" required="true" class="form-control" th:field="*{itemPiecesPackaging}" id="itemPiecesPackaging"/>
-                </div>
-                <div class="form-group">
-                    <label for="itemPackaging">Item Packaging</label>
-                    <input type="text" required="true" class="form-control" th:field="*{itemPackaging}" id="itemPackaging" />
-                </div>
-                <div class="form-group">
-                    <label for="idCategory">Category</label>
-                    <input type="text" required="true" class="form-control" th:field="*{idCategory}" id="idCategory" />
-                </div>
-            </div>
-            <div class="box-footer">
-                <button class="btn btn-primary" type="submit">Save</button>
-            </div>
-        </form>
-    </div>
-</div>
+	<section layout:fragment="header">
+		<h1>Items Registration</h1>
+		<ol class="breadcrumb">
+			<li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+			<li class="active">Registration Client</li>
+		</ol>
+	</section>
+	<div layout:fragment="content">
+		<div class="box">
+			<div class="box-header with-border">
+				<h3 class="box-title">Form</h3>
+				<div class="box-tools pull-right">
+					<a href="/items" type="button" class="btn btn-box-tool"><i
+						class="fa fa-list-ul"></i></a>
+				</div>
+			</div>
+			<form class="form-horizontal" data-toggle="validator" role="form"
+				th:object="${items}" th:action="@{/items/save}" method="post">
+				<div class="box-body">
+					<input type="hidden" th:field="*{idItem}" />
+
+
+					<div class="form-group">
+						<label class="col-sm-1 control-label" for="itemCode">Item
+							Code</label>
+						<div class="col-sm-2">
+							<input type="text" required="true" class="form-control"
+								th:field="*{itemCode}" id="itemCode" placeholder="Type Code..." />
+						</div>
+					</div>
+
+					<div class="form-group"></div>
+
+					<div class="form-group">
+						<label class="col-sm-1 control-label" for="itemName">Item
+							Name</label>
+						<div class="col-sm-4">
+							<input type="text" required="true" class="form-control"
+								th:field="*{itemName}" id="itemName"
+								placeholder="Type Item Name..." />
+						</div>
+					</div>
+
+					<div class="form-group"></div>
+
+					<div class="form-group">
+						<label class="col-sm-1 control-label" for="itemPiecesPackaging">Pieces/Pack</label>
+						<div class="col-sm-1">
+							<input type="text" required="true" class="form-control"
+								th:field="*{itemPiecesPackaging}" id="itemPiecesPackaging"
+								placeholder="Ammount.." />
+						</div>
+
+						<label class="col-sm-1 control-label" for="itemPackaging">/</label>
+
+						<div class="col-sm-2">
+							<input type="text" required="true" class="form-control"
+								th:field="*{itemPackaging}" id="itemPackaging"
+								placeholder="Bottle/Tube/etc.." />
+						</div>
+					</div>
+
+					<div class="form-group"></div>
+
+
+					<div class="form-group">
+						<label class="col-sm-1 control-label">Item Brand</label>
+						<div class="col-sm-2">
+							<select class="form-control" th:field="*{idBrand}"
+								required="true">
+								<option value="0">Select Brand</option>
+								<option th:each="itemBr : ${itembrand}"
+									th:value="${itemBr.idBrand}" th:text="${itemBr.brandName}"></option>
+							</select>
+						</div>
+
+						<label class="col-sm-1 control-label">Category</label>
+						<div class="col-sm-2">
+							<select class="form-control" th:field="*{idCategory}"
+								required="true">
+								<option value="0">Select Category</option>
+								<option th:each="itemCat : ${itemcat}"
+									th:value="${itemCat.idCategory}"
+									th:text="${itemCat.categoryName}"></option>
+							</select>
+						</div>
+
+
+						<label class="col-sm-1 control-label">Distributor</label>
+						<div class="col-sm-2">
+							<select class="form-control" th:field="*{idDistributor}"
+								required="true">
+								<option value="0">Select Distributor</option>
+								<option th:each="itemDis : ${itemdis}"
+									th:value="${itemDis.idDistributor}"
+									th:text="${itemDis.distributorName}"></option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="box-footer">
+					<button class="btn btn-primary" type="submit">Save</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </body>
 </html>
