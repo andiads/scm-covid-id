@@ -10,7 +10,7 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name="id_category")
+@Table(name="item_category")
 public class ItemCategory {
 	
 	@Id
@@ -18,5 +18,5 @@ public class ItemCategory {
 	private int idCategory;
 	private String categoryName;
 	private String categoryCode;
-	private int shown;
+	private int shown=1;
 }

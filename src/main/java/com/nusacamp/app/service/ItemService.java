@@ -1,5 +1,6 @@
 package com.nusacamp.app.service;
 
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -17,6 +18,7 @@ public class ItemService {
 
 	private final ItemRepository itemRepository;
 	
+	
 	private static final int PAGE_SIZE = 10;
 	
 	protected JpaRepository<Item, Integer> getRepository(){
@@ -29,7 +31,7 @@ public class ItemService {
 
         return getRepository().findAll(pageRequest);
 	}
-	
+
 	public void saveItem(Item item) {
 		itemRepository.save(item);
 	}

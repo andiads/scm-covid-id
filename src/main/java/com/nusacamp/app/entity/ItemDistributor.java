@@ -18,5 +18,5 @@ public class ItemDistributor {
 	private int idDistributor;
 	private String distributorName;
 	private String distributorCode;
-	private int shown;
+	private int shown=1;
 }
