@@ -36,6 +36,7 @@ public class ItemService {
 
 
 	public void saveItem(Item item) {
+		item.setShown(1);
 		itemRepository.save(item);
 	}
 	
