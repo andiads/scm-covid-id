@@ -19,12 +19,14 @@ import com.nusacamp.app.entity.ItemBrand;
 import com.nusacamp.app.entity.ItemCategory;
 import com.nusacamp.app.entity.ItemDistributor;
 import com.nusacamp.app.entity.User;
+import com.nusacamp.app.entity.ViewItemsList;
 import com.nusacamp.app.repository.ItemRepository;
 import com.nusacamp.app.service.ItemBrandService;
 import com.nusacamp.app.service.ItemCategoryService;
 import com.nusacamp.app.service.ItemDistributorService;
 import com.nusacamp.app.service.ItemService;
 import com.nusacamp.app.service.UserService;
+import com.nusacamp.app.service.ViewItemsListService;
 
 import groovy.util.logging.Slf4j;
 import lombok.RequiredArgsConstructor;
@@ -45,14 +47,17 @@ public class ItemController {
 	
 	private final ItemDistributorService itemDistribService;
 	
+	// should use viewItemsList to render the view contents?
+	private final ViewItemsListService viewItemsListService;
+	
 	@GetMapping
 	public String index() {
 		return "redirect:/items/1";
 	}
 	
 	@GetMapping(value = "/{pageNumber}")
-	public String listUser(@PathVariable Integer pageNumber, Model model) {
-		Page<Item> page = itemService.getList(pageNumber);
+	public String listItem(@PathVariable Integer pageNumber, Model model) {
+		Page<ViewItemsList> page = viewItemsListService.getAllAvailableList(pageNumber);
 
 		int current = page.getNumber() + 1;
 		int begin = Math.max(1, current - 5);
@@ -66,7 +71,7 @@ public class ItemController {
 	}
 	
 	@GetMapping("/add")
-	public String addUser(Model model) {
+	public String addItem(Model model) {
 		List<ItemBrand> itembr =  itemBrandService.getItemBrand();
 		List<ItemCategory> itemcat = itemCategoryService.getItemCategory();
 		List<ItemDistributor> itemdis = itemDistribService.getItemDistrib();
@@ -79,13 +84,13 @@ public class ItemController {
 	}
 	
     @PostMapping(value = "/save")
-    public String saveUser(Item item) {
+    public String saveItem(Item item) {
     	itemService.saveItem(item);
         return "redirect:/items";
     }
     
     @GetMapping("/edit/{idItem}")
-    public String editUser(@PathVariable int idItem, Model model) {
+    public String editItem(@PathVariable int idItem, Model model) {
     	List<ItemBrand> itembr =  itemBrandService.getItemBrand();
 		List<ItemCategory> itemcat = itemCategoryService.getItemCategory();
 		List<ItemDistributor> itemdis = itemDistribService.getItemDistrib();
@@ -98,7 +103,8 @@ public class ItemController {
     
     @GetMapping("/delete/{idItem}")
     public String deleteItem(@PathVariable int idItem, Item item){
-    	item.setShown(0);
+    	//item.setShown(0);
+    	item.setIdItem(idItem);
     	itemService.deleteItem(item);
     	return"redirect:/items";
     }
