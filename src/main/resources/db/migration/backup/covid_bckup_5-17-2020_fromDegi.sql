@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 17, 2020 at 03:32 PM
+-- Generation Time: May 17, 2020 at 01:42 PM
 -- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.3
+-- PHP Version: 7.4.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -51,19 +50,6 @@ INSERT INTO `flyway_schema_history` (`installed_rank`, `version`, `description`,
 -- --------------------------------------------------------
 
 --
--- Table structure for table `id_category`
---
-
-CREATE TABLE `id_category` (
-  `id_category` int(11) NOT NULL,
-  `category_code` varchar(255) DEFAULT NULL,
-  `category_name` varchar(255) DEFAULT NULL,
-  `shown` int(11) NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `item`
 --
 
@@ -94,7 +80,7 @@ INSERT INTO `item` (`id_item`, `item_code`, `item_name`, `item_packaging`, `item
 (3, '121', 'degiherlambang', 'Bottle', 1, 1, '2020-05-16 16:25:25', '2020-05-16 16:25:25', 0, 0, 2, 4, NULL, NULL),
 (4, '555', 'Covid-19 Medicine', 'Bottle', 1, 1, '2020-05-16 18:31:09', '2020-05-16 18:31:09', 0, 0, 1, 3, NULL, NULL),
 (5, '11', 'Positif Kontrol RP', 'Tube', 1, 2, '2020-05-16 18:34:16', '2020-05-16 18:34:16', 0, 0, 1, 3, NULL, NULL),
-(6, NULL, NULL, NULL, 0, 0, '2020-05-16 18:36:58', '2020-05-16 18:36:58', 0, 1, 0, 0, NULL, NULL);
+(6, '560', 'DDT, no weight format', 'Pieces', 1, 1, '2020-05-16 18:36:58', '2020-05-16 18:36:58', 1, 1, 1, 2, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -182,7 +168,7 @@ CREATE TABLE `labs` (
   `lab_mail` varchar(100) DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `created_by` int(11) DEFAULT NULL,
+  `created_by` int(11) NOT NULL DEFAULT 1,
   `shown` int(11) NOT NULL DEFAULT 1,
   `lab_contact` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -196,8 +182,7 @@ INSERT INTO `labs` (`id_lab`, `lab_code`, `password`, `lab_name`, `lab_address`,
 (2, '500', 'jakpus', 'Lab Jakarta Pusat', 'Gondangdia', 'PIC', 'lab_jakpus@kemenkes.gov.id', '2020-05-16 00:53:44', '2020-05-16 00:53:44', 1, 1, '112244'),
 (3, '501', 'jabar', 'Lab Jawa Barat', 'Bandung', 'PIC', 'lab_jabar@kemenkes.gov.id', '2020-05-16 00:56:15', '2020-05-16 00:56:15', 1, 1, '112255'),
 (4, '502', 'jateng', 'Lab Jawa Tengah', 'Semarang', 'PIC', 'lab_jateng@kemenkes.gov.id', '2020-05-16 00:57:49', '2020-05-16 00:57:49', 1, 1, '112266'),
-(5, '010101', 'labbali', 'Lab Bali', 'Kuta Bali', 'PIC', 'lab_bali@kemenkes.gov.id', '2020-05-17 14:02:42', '2020-05-17 14:02:42', 1, 1, '112299'),
-(6, '0992', 'labmalang99', 'Lab Malang 1', 'Malang, Jawa Timur', 'none', 'lab_malang@kemenkes.gov.id', '2020-05-17 19:06:18', '2020-05-17 19:06:18', 1, 1, '111231');
+(5, '010101', 'labbali', 'Lab Bali', 'Kuta Bali', 'PIC', 'lab_bali@kemenkes.gov.id', '2020-05-17 14:02:42', '2020-05-17 14:02:42', 1, 1, '112299');
 
 -- --------------------------------------------------------
 
@@ -228,17 +213,21 @@ CREATE TABLE `user` (
   `mail` varchar(50) NOT NULL,
   `fullname` varchar(200) NOT NULL,
   `password` varchar(64) NOT NULL,
-  `user_type` int(11) NOT NULL,
+  `user_type` int(11) DEFAULT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `updated_at` datetime NOT NULL DEFAULT current_timestamp()
+  `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `update_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `user`
 --
 
-INSERT INTO `user` (`id`, `mail`, `fullname`, `password`, `user_type`, `created_at`, `updated_at`) VALUES
-(1, 'nusacamp@scmcovid.gov.id', 'Nusacamp', '$2a$10$cN0obQ0Z0Tv/kz5tfs4nh.b5GHVaGRc7N/wwqfulob.pUUqdS12TS', 1, '2020-05-15 11:12:35', '2020-05-15 11:12:35');
+INSERT INTO `user` (`id`, `mail`, `fullname`, `password`, `user_type`, `created_at`, `updated_at`, `update_at`) VALUES
+(1, 'nusacamp@scmcovid.gov.id', 'Nusacamp', '$2a$10$cN0obQ0Z0Tv/kz5tfs4nh.b5GHVaGRc7N/wwqfulob.pUUqdS12TS', 1, '2020-05-15 11:12:35', '2020-05-15 11:12:35', '2020-05-15 16:31:06'),
+(2, 'ddegi.h@gmail.com', 'degi herlambang', '$2a$10$cN0obQ0Z0Tv/kz5tfs4nh.b5GHVaGRc7N/wwqfulob.pUUqdS12TS', 1, '2020-05-15 22:28:27', '2020-05-15 22:28:27', '2020-05-15 16:31:06'),
+(3, 'ddegi@gmail.com', 'Degi Herlambang', 'herlambang', 1, '2020-05-15 23:31:36', '2020-05-15 23:31:36', '2020-05-15 16:31:36'),
+(4, 'united_degy@yahoo.com', 'Degi Herlambang', 'herlambang', 1, '2020-05-17 13:49:09', '2020-05-17 13:49:09', '2020-05-17 06:49:09');
 
 -- --------------------------------------------------------
 
@@ -258,7 +247,7 @@ CREATE TABLE `users_types` (
 --
 
 CREATE TABLE `user_type` (
-  `id` int(1) NOT NULL,
+  `id` int(11) NOT NULL,
   `type_name` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -270,7 +259,8 @@ INSERT INTO `user_type` (`id`, `type_name`) VALUES
 (1, 'ADMIN'),
 (2, 'KEMENKES'),
 (3, 'LAB'),
-(4, 'BNPB');
+(4, 'BNPB'),
+(5, 'Super Admin');
 
 -- --------------------------------------------------------
 
@@ -279,10 +269,8 @@ INSERT INTO `user_type` (`id`, `type_name`) VALUES
 -- (See below for the actual view)
 --
 CREATE TABLE `view_distribution_list` (
-`id_lab` int(11)
-,`lab_name` varchar(200)
+`lab_name` varchar(200)
 ,`item_name` varchar(255)
-,`id_distributor` int(11)
 ,`distributor_name` varchar(64)
 ,`sto_send_time` datetime
 ,`sto_arrive_time` datetime
@@ -295,17 +283,11 @@ CREATE TABLE `view_distribution_list` (
 -- (See below for the actual view)
 --
 CREATE TABLE `view_items_list` (
-`id_item` int(11)
-,`item_name` varchar(255)
+`item_name` varchar(255)
 ,`item_packaging` varchar(30)
 ,`item_pieces_packaging` int(11)
 ,`brand_name` varchar(64)
 ,`category_name` varchar(64)
-,`distributor_name` varchar(64)
-,`shown` int(11)
-,`created_at` datetime
-,`created_by` int(11)
-,`updated_at` datetime
 );
 
 -- --------------------------------------------------------
@@ -359,7 +341,7 @@ CREATE TABLE `view_users_list` (
 --
 DROP TABLE IF EXISTS `view_distribution_list`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_distribution_list`  AS  select `labs`.`id_lab` AS `id_lab`,`labs`.`lab_name` AS `lab_name`,`item`.`item_name` AS `item_name`,`item_distributor`.`id_distributor` AS `id_distributor`,`item_distributor`.`distributor_name` AS `distributor_name`,`stock_order`.`sto_send_time` AS `sto_send_time`,`stock_order`.`sto_arrive_time` AS `sto_arrive_time` from (((`labs` join `item` on(`labs`.`id_lab` = `item`.`id_item`)) join `item_distributor` on(`item`.`id_item` = `item_distributor`.`distributor_name`)) join `stock_order` on(`item`.`id_item` = `stock_order`.`id_sto`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_distribution_list`  AS  select `labs`.`lab_name` AS `lab_name`,`item`.`item_name` AS `item_name`,`item_distributor`.`distributor_name` AS `distributor_name`,`stock_order`.`sto_send_time` AS `sto_send_time`,`stock_order`.`sto_arrive_time` AS `sto_arrive_time` from (((`labs` join `item` on(`labs`.`id_lab` = `item`.`id_item`)) join `item_distributor` on(`item`.`id_item` = `item_distributor`.`distributor_name`)) join `stock_order` on(`item`.`id_item` = `stock_order`.`id_sto`)) ;
 
 -- --------------------------------------------------------
 
@@ -368,7 +350,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `view_items_list`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_items_list`  AS  select `item`.`id_item` AS `id_item`,`item`.`item_name` AS `item_name`,`item`.`item_packaging` AS `item_packaging`,`item`.`item_pieces_packaging` AS `item_pieces_packaging`,`item_brand`.`brand_name` AS `brand_name`,`item_category`.`category_name` AS `category_name`,`item_distributor`.`distributor_name` AS `distributor_name`,`item`.`shown` AS `shown`,`item`.`created_at` AS `created_at`,`item`.`created_by` AS `created_by`,`item`.`updated_at` AS `updated_at` from (((`item` join `item_brand` on(`item`.`id_brand` = `item_brand`.`id_brand`)) join `item_category` on(`item`.`id_category` = `item_category`.`id_category`)) join `item_distributor` on(`item`.`id_distributor` = `item_distributor`.`id_distributor`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_items_list`  AS  select `item`.`item_name` AS `item_name`,`item`.`item_packaging` AS `item_packaging`,`item`.`item_pieces_packaging` AS `item_pieces_packaging`,`item_brand`.`brand_name` AS `brand_name`,`item_category`.`category_name` AS `category_name` from ((`item` join `item_brand` on(`item`.`id_item` = `item_brand`.`id_brand`)) join `item_category` on(`item`.`id_item` = `item_category`.`id_category`)) ;
 
 -- --------------------------------------------------------
 
@@ -407,12 +389,6 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 ALTER TABLE `flyway_schema_history`
   ADD PRIMARY KEY (`installed_rank`),
   ADD KEY `flyway_schema_history_s_idx` (`success`);
-
---
--- Indexes for table `id_category`
---
-ALTER TABLE `id_category`
-  ADD PRIMARY KEY (`id_category`);
 
 --
 -- Indexes for table `item`
@@ -474,12 +450,6 @@ ALTER TABLE `user_type`
 --
 
 --
--- AUTO_INCREMENT for table `id_category`
---
-ALTER TABLE `id_category`
-  MODIFY `id_category` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
@@ -507,7 +477,7 @@ ALTER TABLE `item_distributor`
 -- AUTO_INCREMENT for table `labs`
 --
 ALTER TABLE `labs`
-  MODIFY `id_lab` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_lab` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `stock_order`
@@ -519,7 +489,13 @@ ALTER TABLE `stock_order`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `user_type`
+--
+ALTER TABLE `user_type`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
