@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout">
 <head>
-    <title>Users</title>
+    <title>Laboratories</title>
 </head>
 <body>
 <section layout:fragment="header">
-    <h1>Users</h1>
+    <h1>Laboratories</h1>
 <ol class="breadcrumb">
     <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-    <li class="active">Users</li>
+    <li class="active">Laboratories</li>
 </ol>
 </section>
 <div layout:fragment="content">
@@ -17,7 +17,7 @@
         <div class="box-header with-border">
             <h3 class="box-title">Lists</h3>
             <div class="box-tools pull-right">
-                <a href="/users/add" type="button" class="btn btn-box-tool"><i class="fa fa-plus"></i></a>
+                <a href="/labs/add" type="button" class="btn btn-box-tool"><i class="fa fa-plus"></i></a>
                 <br clear="all" />
             </div>
         </div>
@@ -31,7 +31,7 @@
                     <th>Lab Contact</th>
                     <th>Created Date</th>
                     <th>Created By</th>
-                    <th>Latest Update</th>
+                    <th>PIC</th>
                     <th>Action</th>
                 </tr>
                 <tr th:each="row : ${list}">
@@ -42,7 +42,7 @@
                     <td th:text="${row.labContact}"></td>
                     <td th:text="${row.createdAt}"></td>
                     <td th:text="${row.createdBy}"></td>
-                    <td th:text="${row.updatedAt}"></td>
+                    <td th:text="${row.LabPic}"></td>
                     <td>
                         <a th:href="${'/labs/edit/' + row.idLab}">Edit</a> |
                         <a th:href="${'/labs/delete/' + row.idLab}">Delete</a>
