@@ -1,5 +1,7 @@
 package com.nusacamp.app.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -30,6 +32,9 @@ public class ItemDistributorService {
         return getRepository().findAll(pageRequest);
 	}
 	
+	public List<ItemDistributor> getItemDistrib(){
+		return itemDistributorRepo.findAll();
+	}
 	public void saveItemDistributor(ItemDistributor itemDistributor) {
 		itemDistributorRepo.save(itemDistributor);
 	}

@@ -1,5 +1,7 @@
 package com.nusacamp.app.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -28,6 +30,10 @@ public class ItemBrandService {
                 PageRequest.of(pageNumber - 1, PAGE_SIZE, Sort.Direction.ASC, "idBrand");
 
         return getRepository().findAll(pageRequest);
+	}
+	
+	public List<ItemBrand> getItemBrand(){
+		return itemBrandRepo.findAll();
 	}
 	
 	public void saveItemBrand(ItemBrand itemBrand) {

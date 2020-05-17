@@ -1,5 +1,6 @@
 package com.nusacamp.app.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -19,13 +20,14 @@ public class Item {
 	private String itemCode;
 	private String itemName;
 	private int itemPiecesPackaging;
+	private String itemPackaging;
 	private int idCategory;
+	@Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
 	private String createdAt;
+	@Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
 	private String updatedAt;
-	private int shown;
-	private int createdBy;
+	private int shown=1;
+	private int createdBy=1;
 	private int idBrand;
 	private int idDistributor;
-	private int idSto;
-	private int idLab;
 }

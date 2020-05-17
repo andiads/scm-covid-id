@@ -17,7 +17,7 @@
         <div class="box-header with-border">
             <h3 class="box-title">Lists</h3>
             <div class="box-tools pull-right">
-                <a href="/customers/add" type="button" class="btn btn-box-tool"><i class="fa fa-plus"></i></a>
+                <a href="/users/add" type="button" class="btn btn-box-tool"><i class="fa fa-plus"></i></a>
                 <br clear="all" />
             </div>
         </div>
@@ -44,11 +44,11 @@
         </div>
         <div class="box-footer clearfix">
             <ul class="pagination pagination-sm no-margin pull-right">
-                <li><a href="/customers/1">First</a></li>
+                <li><a href="/users/1">First</a></li>
                 <li th:each="p : ${#numbers.sequence(1, endIndex/beginIndex)}" th:class="${p == currentIndex} ? 'active' : ''">
-                    <a th:href="${'/customers/' + p}" th:text="${p}"></a>
+                    <a th:href="${'/users/' + p}" th:text="${p}"></a>
                 </li>
-                <li><a th:href="${'/customers/' + endIndex}">Last</a></li>
+                <li><a th:href="${'/users/' + endIndex}">Last</a></li>
             </ul>
         </div>
     </div>

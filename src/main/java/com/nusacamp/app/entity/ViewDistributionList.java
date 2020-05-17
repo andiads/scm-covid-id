@@ -13,6 +13,8 @@ import lombok.Data;
 @Table(name = "view_distribution_list")
 public class ViewDistributionList {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idDistribution;
 	private String labName;
 	private String itemName;
