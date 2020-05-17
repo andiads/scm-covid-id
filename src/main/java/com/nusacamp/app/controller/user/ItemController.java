@@ -2,12 +2,16 @@ package com.nusacamp.app.controller.user;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nusacamp.app.entity.Item;
@@ -15,19 +19,24 @@ import com.nusacamp.app.entity.ItemBrand;
 import com.nusacamp.app.entity.ItemCategory;
 import com.nusacamp.app.entity.ItemDistributor;
 import com.nusacamp.app.entity.User;
+import com.nusacamp.app.repository.ItemRepository;
 import com.nusacamp.app.service.ItemBrandService;
 import com.nusacamp.app.service.ItemCategoryService;
 import com.nusacamp.app.service.ItemDistributorService;
 import com.nusacamp.app.service.ItemService;
 import com.nusacamp.app.service.UserService;
 
+import groovy.util.logging.Slf4j;
 import lombok.RequiredArgsConstructor;
 
+@Slf4j
 @Controller
 @RequestMapping("items")
 @RequiredArgsConstructor
 public class ItemController {
 
+	private final ItemRepository itemRepo;
+	
 	private final ItemService itemService;
 	
 	private final ItemBrandService itemBrandService;
@@ -85,5 +94,14 @@ public class ItemController {
 		model.addAttribute("itembrand", itembr);
     	model.addAttribute("items", itemService.getById(idItem));
     	return "items/form";
-    }    
+    } 
+    
+    @GetMapping("/delete/{idItem}")
+    public String deleteItem(@PathVariable int idItem, Item item){
+    	item.setShown(0);
+    	itemService.deleteItem(item);
+    	return"redirect:/items";
+    }
+    
+    
 }

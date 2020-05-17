@@ -1,6 +1,8 @@
 package com.nusacamp.app.service;
 
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -38,6 +40,15 @@ public class ItemService {
 	
 	public Item getById(int idItem) {
 		return itemRepository.findById(idItem).get();
+	}
+	
+	public Optional<Item> findById(int id) {
+		return this.itemRepository.findById(id);
+	}
+	
+	public Item deleteItem(final Item item) {
+		item.setShown(0);
+		return itemRepository.save(item);
 	}
 
 }
