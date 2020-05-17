@@ -26,6 +26,8 @@ public class Item {
 	private String createdAt;
 	@Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP", insertable = false, updatable = false)
 	private String updatedAt;
-	private int shown;
-	private int createdBy;
+	private int shown=1;
+	private int createdBy=1;
+	private int idBrand;
+	private int idDistributor;
 }
