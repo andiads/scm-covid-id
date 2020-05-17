@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout">
 <head>
-    <title>Items</title>
+    <title>UserType</title>
 </head>
 <body>
 <section layout:fragment="header">
-    <h1>Items</h1>
+    <h1>User Type</h1>
 <ol class="breadcrumb">
     <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-    <li class="active">Items</li>
+    <li class="active">UserType</li>
 </ol>
 </section>
 <div layout:fragment="content">
@@ -17,7 +17,7 @@
         <div class="box-header with-border">
             <h3 class="box-title">Lists</h3>
             <div class="box-tools pull-right">
-                <a href="/items/add" type="button" class="btn btn-box-tool"><i class="fa fa-plus"></i></a>
+                <a href="/usertype/add" type="button" class="btn btn-box-tool"><i class="fa fa-plus"></i></a>
                 <br clear="all" />
             </div>
         </div>
@@ -25,36 +25,26 @@
             <table class="table table-striped">
                 <tr>
                     <th>ID</th>
-                    <th>Item Name</th>
-                    <th>Pieces / Packaging</th>
-                    <th>Category</th>
-                    <th>Brand</th>
-                    <th>Distributor</th>
-                    <th>Created Date</th>
+                    <th>Type Name</th>
                     <th>Action</th>
                 </tr>
                 <tr th:each="row : ${list}">
-                    <td th:text="${row.idItem}"></td>
-                    <td th:text="${row.itemName}"></td>
-                    <td th:text="${row.itemPiecesPackaging + ' / ' + row.itemPackaging}"></td>
-                    <td th:text="${row.idCategory}"></td>
-                    <td th:text="${row.idBrand}"></td>
-                    <td th:text="${row.idDistributor}"></td>
-                    <td th:text="${row.createdAt}"></td>
+                    <td th:text="${row.id}"></td>
+                    <td th:text="${row.typeName}"></td>
                     <td>
-                        <a th:href="${'/items/edit/' + row.idItem}">Edit</a> |
-                        <a th:href="${'/items/delete/' + row.idItem}">Delete</a>
+                        <a th:href="${'/usertype/edit/' + row.id}">Edit</a> |
+                        <a th:href="${'/usertype/delete/' + row.id}">Delete</a>
                     </td>
                 </tr>
             </table>
         </div>
         <div class="box-footer clearfix">
             <ul class="pagination pagination-sm no-margin pull-right">
-                <li><a href="/labs/1">First</a></li>
+                <li><a href="/usertype/1">First</a></li>
                 <li th:each="p : ${#numbers.sequence(1, endIndex/beginIndex)}" th:class="${p == currentIndex} ? 'active' : ''">
-                    <a th:href="${'/labs/' + p}" th:text="${p}"></a>
+                    <a th:href="${'/usertype/' + p}" th:text="${p}"></a>
                 </li>
-                <li><a th:href="${'/labs/' + endIndex}">Last</a></li>
+                <li><a th:href="${'/usertype/' + endIndex}">Last</a></li>
             </ul>
         </div>
     </div>

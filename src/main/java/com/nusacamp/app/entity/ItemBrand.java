@@ -18,5 +18,5 @@ public class ItemBrand {
 	private int idBrand;
 	private String brandCode;
 	private String brandName;
-	private int shown;
+	private int shown=1;
 }

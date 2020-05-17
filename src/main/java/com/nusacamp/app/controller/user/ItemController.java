@@ -1,5 +1,7 @@
 package com.nusacamp.app.controller.user;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nusacamp.app.entity.Item;
+import com.nusacamp.app.entity.ItemBrand;
+import com.nusacamp.app.entity.ItemCategory;
+import com.nusacamp.app.entity.ItemDistributor;
 import com.nusacamp.app.entity.User;
+import com.nusacamp.app.service.ItemBrandService;
+import com.nusacamp.app.service.ItemCategoryService;
+import com.nusacamp.app.service.ItemDistributorService;
 import com.nusacamp.app.service.ItemService;
 import com.nusacamp.app.service.UserService;
 
@@ -21,6 +29,12 @@ import lombok.RequiredArgsConstructor;
 public class ItemController {
 
 	private final ItemService itemService;
+	
+	private final ItemBrandService itemBrandService;
+	
+	private final ItemCategoryService itemCategoryService;
+	
+	private final ItemDistributorService itemDistribService;
 	
 	@GetMapping
 	public String index() {
@@ -39,13 +53,17 @@ public class ItemController {
 		model.addAttribute("beginIndex", begin);
 		model.addAttribute("endIndex", end);
 		model.addAttribute("currentIndex", current);
-
 		return "items/list";
-
 	}
 	
 	@GetMapping("/add")
 	public String addUser(Model model) {
+		List<ItemBrand> itembr =  itemBrandService.getItemBrand();
+		List<ItemCategory> itemcat = itemCategoryService.getItemCategory();
+		List<ItemDistributor> itemdis = itemDistribService.getItemDistrib();
+		model.addAttribute("itemdis", itemdis);
+		model.addAttribute("itemcat", itemcat);
+		model.addAttribute("itembrand", itembr);
 		model.addAttribute("items", new Item());
 		return "items/form";
 
@@ -59,6 +77,12 @@ public class ItemController {
     
     @GetMapping("/edit/{idItem}")
     public String editUser(@PathVariable int idItem, Model model) {
+    	List<ItemBrand> itembr =  itemBrandService.getItemBrand();
+		List<ItemCategory> itemcat = itemCategoryService.getItemCategory();
+		List<ItemDistributor> itemdis = itemDistribService.getItemDistrib();
+		model.addAttribute("itemdis", itemdis);
+		model.addAttribute("itemcat", itemcat);
+		model.addAttribute("itembrand", itembr);
     	model.addAttribute("items", itemService.getById(idItem));
     	return "items/form";
     }    
