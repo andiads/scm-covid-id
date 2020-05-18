@@ -29,6 +29,9 @@
                     <th>Address</th>
                     <th>Mail</th>
                     <th>Lab Contact</th>
+                    <th>Created Date</th>
+                    <th>Created By</th>
+                    <th>PIC</th>
                     <th>Action</th>
                 </tr>
                 <tr th:each="row : ${list}">
@@ -37,6 +40,9 @@
                     <td th:text="${row.labAddress}"></td>
                     <td th:text="${row.labMail}"></td>
                     <td th:text="${row.labContact}"></td>
+                    <td th:text="${row.createdAt}"></td>
+                    <td th:text="${row.createdBy}"></td>
+                    <td th:text="${row.LabPic}"></td>
                     <td>
                         <a th:href="${'/labs/edit/' + row.idLab}">Edit</a> |
                         <a th:href="${'/labs/delete/' + row.idLab}">Delete</a>
