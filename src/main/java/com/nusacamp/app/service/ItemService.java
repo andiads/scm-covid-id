@@ -1,6 +1,9 @@
 package com.nusacamp.app.service;
 
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -25,19 +28,34 @@ public class ItemService {
 		return itemRepository;
 	}
 	
-	public Page<Item> getList(Integer pageNumber) {
+	public Page<Item> getAvailableList(Integer pageNumber) {
 		PageRequest pageRequest =
                 PageRequest.of(pageNumber - 1, PAGE_SIZE, Sort.Direction.ASC, "idItem");
 
         return getRepository().findAll(pageRequest);
 	}
 
+	
+	public List<Item> getAllItem() {
+		return itemRepository.findAll();
+	}
+
 	public void saveItem(Item item) {
+		item.setShown(1);
 		itemRepository.save(item);
 	}
 	
 	public Item getById(int idItem) {
-		return itemRepository.findById(idItem).get();
+		return this.itemRepository.findById(idItem).get();
+	}
+	
+	public Optional<Item> findById(int id) {
+		return this.itemRepository.findById(id);
+	}
+	
+	public void deleteItem(Item item) {
+		item.setShown(0);
+		this.itemRepository.save(item);
 	}
 
 }

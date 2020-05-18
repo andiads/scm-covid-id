@@ -37,9 +37,9 @@
                     <td th:text="${row.idItem}"></td>
                     <td th:text="${row.itemName}"></td>
                     <td th:text="${row.itemPiecesPackaging + ' / ' + row.itemPackaging}"></td>
-                    <td th:text="${row.idCategory}"></td>
-                    <td th:text="${row.idBrand}"></td>
-                    <td th:text="${row.idDistributor}"></td>
+                    <td th:text="${row.categoryName}"></td>
+                    <td th:text="${row.brandName}"></td>
+                    <td th:text="${row.distributorName}"></td>
                     <td th:text="${row.createdAt}"></td>
                     <td>
                         <a th:href="${'/items/edit/' + row.idItem}">Edit</a> |
