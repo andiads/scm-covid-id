@@ -4,6 +4,7 @@
 --
 -- Host: 127.0.0.1
 -- Generation Time: May 17, 2020 at 03:32 PM
+
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -369,6 +370,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 DROP TABLE IF EXISTS `view_items_list`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_items_list`  AS  select `item`.`id_item` AS `id_item`,`item`.`item_name` AS `item_name`,`item`.`item_packaging` AS `item_packaging`,`item`.`item_pieces_packaging` AS `item_pieces_packaging`,`item_brand`.`brand_name` AS `brand_name`,`item_category`.`category_name` AS `category_name`,`item_distributor`.`distributor_name` AS `distributor_name`,`item`.`shown` AS `shown`,`item`.`created_at` AS `created_at`,`item`.`created_by` AS `created_by`,`item`.`updated_at` AS `updated_at` from (((`item` join `item_brand` on(`item`.`id_brand` = `item_brand`.`id_brand`)) join `item_category` on(`item`.`id_category` = `item_category`.`id_category`)) join `item_distributor` on(`item`.`id_distributor` = `item_distributor`.`id_distributor`)) ;
+
 
 -- --------------------------------------------------------
 
