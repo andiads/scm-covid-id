@@ -1,0 +1,63 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <title>Items</title>
+</head>
+<body>
+<section layout:fragment="header">
+    <h1>Items</h1>
+<ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li class="active">Items</li>
+</ol>
+</section>
+<div layout:fragment="content">
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">Lists</h3>
+            <div class="box-tools pull-right">
+                <a href="/items/add" type="button" class="btn btn-box-tool"><i class="fa fa-plus"></i></a>
+                <br clear="all" />
+            </div>
+        </div>
+        <div class="box-body no-padding">
+            <table class="table table-striped">
+                <tr>
+                    <th>ID</th>
+                    <th>Item Name</th>
+                    <th>Pieces / Packaging</th>
+                    <th>Category</th>
+                    <th>Brand</th>
+                    <th>Distributor</th>
+                    <th>Created Date</th>
+                    <th>Action</th>
+                </tr>
+                <tr th:each="row : ${list}">
+                    <td th:text="${row.idItem}"></td>
+                    <td th:text="${row.itemName}"></td>
+                    <td th:text="${row.itemPiecesPackaging + ' / ' + row.itemPackaging}"></td>
+                    <td th:text="${row.categoryName}"></td>
+                    <td th:text="${row.brandName}"></td>
+                    <td th:text="${row.distributorName}"></td>
+                    <td th:text="${row.createdAt}"></td>
+                    <td>
+                        <a th:href="${'/items/edit/' + row.idItem}">Edit</a> |
+                        <a th:href="${'/items/delete/' + row.idItem}">Delete</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="box-footer clearfix">
+            <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a href="/items/1">First</a></li>
+                <li th:each="p : ${#numbers.sequence(1, endIndex/beginIndex)}" th:class="${p == currentIndex} ? 'active' : ''">
+                    <a th:href="${'/items/' + p}" th:text="${p}"></a>
+                </li>
+                <li><a th:href="${'/items/' + endIndex}">Last</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

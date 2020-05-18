@@ -1,0 +1,112 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout">
+<head>
+<title>Regis Laboratories</title>
+</head>
+<body>
+	<section layout:fragment="header">
+		<h1>Laboratories Registration</h1>
+		<ol class="breadcrumb">
+			<li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+			<li class="active">Registration Client</li>
+		</ol>
+	</section>
+	<div layout:fragment="content">
+		<div class="box">
+			<div class="box-header with-border">
+				<h3 class="box-title">Form</h3>
+				<div class="box-tools pull-right">
+					<a href="/labs" type="button" class="btn btn-box-tool"><i
+						class="fa fa-list-ul"></i></a>
+				</div>
+			</div>
+			<form class="form-horizontal" data-toggle="validator" role="form"
+				th:object="${labs}" th:action="@{/labs/save}" method="post">
+				<div class="box-body">
+					<input type="hidden" th:field="*{idLab}" />
+
+					<div class="form-group">
+						<label class="col-sm-1 control-label" for="labCode">Lab
+							Code</label>
+						<div class="col-sm-2">
+							<input type="text" required="true" class="form-control"
+								th:field="*{labCode}" id="labCode" />
+						</div>
+
+						<label class="col-sm-1 control-label" for="labPic">PIC</label>
+						<div class="col-sm-2">
+							<input type="text" required="true" class="form-control"
+								th:field="*{labPic}" id="labPic" />
+						</div>
+					</div>
+
+					<div class="form-group"></div>
+
+
+					<div class="form-group">
+						<label class="col-sm-1 control-label" for="labName">Lab
+							Name</label>
+						<div class="col-sm-4">
+							<input type="text" required="true" class="form-control"
+								th:field="*{labName}" id="labName" />
+						</div>
+					</div>
+
+					<div class="form-group"></div>
+
+
+					<div class="form-group">
+						<label class="col-sm-1 control-label" for="password">Password</label>
+						<div class="col-sm-4">
+							<input type="password" required="true" class="form-control"
+								th:field="*{password}" id="password" />
+						</div>
+					</div>
+
+
+					<div class="form-group"></div>
+
+
+					<div class="form-group">
+						<label class="col-sm-1 control-label" for="labAddress">Address</label>
+						<div class="col-sm-10">
+							<input type="text" required="true" class="form-control"
+								th:field="*{labAddress}" id="labAddress" />
+						</div>
+					</div>
+
+
+					<div class="form-group"></div>
+
+
+					<div class="form-group">
+						<label class="col-sm-1 control-label" for="labMail">Lab
+							Mail</label>
+						<div class="col-sm-2">
+							<input type="text" required="true" class="form-control"
+								th:field="*{labMail}" id="labMail" />
+						</div>
+
+
+						<label class="col-sm-1 control-label" for="labContact">Contact</label>
+						<div class="col-sm-2">
+							<input type="text" required="true" class="form-control"
+								th:field="*{labContact}" id="labContact" />
+						</div>
+					</div>
+
+
+					<div class="form-group"></div>
+
+
+				</div>
+				<div class="box-footer">
+					<button class="btn btn-primary" type="submit">Save</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>

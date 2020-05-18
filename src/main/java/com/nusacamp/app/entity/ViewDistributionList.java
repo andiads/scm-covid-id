@@ -13,12 +13,19 @@ import lombok.Data;
 @Table(name = "view_distribution_list")
 public class ViewDistributionList {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idDistribution;
-	private String labName;
+	private String labDestination;
+	private String sourceName;
 	private String itemName;
-	private String distributorName;
-	private String stockSendTime;
-	private String stockArriveTime;
+	private int amount;
+	private int status;
+	private String sendAt;
+	private String arrivedAt;
+	private int shown;
+	private String createdAt;
+	private String updatedAt;
 	
 	
 }

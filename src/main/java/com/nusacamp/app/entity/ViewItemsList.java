@@ -30,5 +30,15 @@ public class ViewItemsList {
 	private String brandName;
 	@Column(name = "category_name")
 	private String categoryName;
-
+	@Column(name = "distributor_name")
+	private String distributorName;
+	@Column(name = "shown")
+	private int shown;
+	@Column(name = "created_at")
+	private String createdAt;
+	@Column(name = "created_by")
+	private int createdBy;
+	@Column(name = "updated_at")
+	private String updatedAt;
+	
 }
