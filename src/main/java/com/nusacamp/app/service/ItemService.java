@@ -39,6 +39,14 @@ public class ItemService {
 	public List<Item> getAllItem() {
 		return itemRepository.findAll();
 	}
+	
+	public List<Item> getAllAvailableItems() {
+		return this.itemRepository.findAllAvailableItems();
+	}
+	
+	public List<Item> getAllDeletedItems() {
+		return this.itemRepository.findAllDeletedItems();
+	}
 
 	public void saveItem(Item item) {
 		item.setShown(1);

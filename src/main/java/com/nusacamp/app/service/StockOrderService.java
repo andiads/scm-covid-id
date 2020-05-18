@@ -1,5 +1,7 @@
 package com.nusacamp.app.service;
 
+import java.sql.Timestamp;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -31,6 +33,8 @@ public class StockOrderService {
 		}
 		
 		public void saveStockOrder(StockOrder stockOrder) {
+			stockOrder.setStatus(1); // set it into on the way status...
+			stockOrder.setShown(1);
 			stockOrderRepo.save(stockOrder);
 		}
 		
@@ -38,5 +42,16 @@ public class StockOrderService {
 			return stockOrderRepo.findById(idStockOrder).get();
 		}
 		
+		public void confirmStockOrder(StockOrder stockOrder) {
+			Timestamp ts = new Timestamp(new java.util.Date().getTime());
+			stockOrder.setStockArriveTime(ts.toString().substring(0, 18));
+			stockOrder.setShown(1);
+			this.stockOrderRepo.save(stockOrder);
+		}
 		
+		
+		public void deleteStockOrder(StockOrder stockOrder) {
+			stockOrder.setShown(0);
+			this.stockOrderRepo.save(stockOrder);
+		}
 }

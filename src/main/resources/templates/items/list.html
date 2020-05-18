@@ -50,11 +50,11 @@
         </div>
         <div class="box-footer clearfix">
             <ul class="pagination pagination-sm no-margin pull-right">
-                <li><a href="/labs/1">First</a></li>
+                <li><a href="/items/1">First</a></li>
                 <li th:each="p : ${#numbers.sequence(1, endIndex/beginIndex)}" th:class="${p == currentIndex} ? 'active' : ''">
-                    <a th:href="${'/labs/' + p}" th:text="${p}"></a>
+                    <a th:href="${'/items/' + p}" th:text="${p}"></a>
                 </li>
-                <li><a th:href="${'/labs/' + endIndex}">Last</a></li>
+                <li><a th:href="${'/items/' + endIndex}">Last</a></li>
             </ul>
         </div>
     </div>
