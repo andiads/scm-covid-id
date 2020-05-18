@@ -1,0 +1,48 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="layout">
+<head>
+<title>Stock Source Form</title>
+</head>
+<body>
+	<section layout:fragment="header">
+		<h1>Stock Source Form</h1>
+		<ol class="breadcrumb">
+			<li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+			<li class="active">Stock Source Form</li>
+		</ol>
+	</section>
+	<div layout:fragment="content">
+		<div class="box">
+			<div class="box-header with-border">
+				<h3 class="box-title">Form</h3>
+				<div class="box-tools pull-right">
+					<a href="/items" type="button" class="btn btn-box-tool"><i
+						class="fa fa-list-ul"></i></a>
+				</div>
+			</div>
+			<form class="form-horizontal" data-toggle="validator" role="form"
+				th:object="${stocksource}" th:action="@{/stocksource/save}" method="post">
+				<div class="box-body">
+					<input type="hidden" th:field="*{idSource}" />
+
+
+					<div class="form-group">
+						<label class="col-sm-1 control-label" for="sourceName">Source Name</label>
+						<div class="col-sm-4">
+							<input type="text" required="true" class="form-control"
+								th:field="*{sourceName}" id="sourceName" placeholder="Source location name..." />
+						</div>
+					</div>
+
+					</div>
+				</div>
+				<div class="box-footer">
+					<button class="btn btn-primary" type="submit">Save</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</body>
+</html>
