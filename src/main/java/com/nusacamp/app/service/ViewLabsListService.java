@@ -19,7 +19,7 @@ public class ViewLabsListService {
 
 	private final ViewLabsListRepository viewLabsListRepository;
 	
-private static final int PAGE_SIZE=5;
+	private static final int PAGE_SIZE=5;
 	
 	protected JpaRepository<ViewLabsList, Integer> getRepository(){
 		return viewLabsListRepository;

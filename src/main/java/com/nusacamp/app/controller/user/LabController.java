@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nusacamp.app.entity.Lab;
@@ -74,8 +75,7 @@ public class LabController {
     
     @PostMapping(value = "/confirmDel")
     public String confirmDeleteLab(Lab lab) {
-    	lab.setShown(0);
-    	labService.saveLabs(lab);
+    	labService.deleteLab(lab);
         return "redirect:/labs";
     }
 }
