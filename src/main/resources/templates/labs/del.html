@@ -1,0 +1,63 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout">
+<head>
+    <title>Delete Lab</title>
+</head>
+<body>
+<section layout:fragment="header">
+    <h1>Delete Lab?</h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">Registration Client</li>
+    </ol>
+</section>
+<div layout:fragment="content">
+    <div class="box">
+        <div class="box-header with-border">
+            <div class="box-tools pull-right">
+                <a href="/items" type="button" class="btn btn-box-tool"><i class="fa fa-list-ul"></i></a>
+            </div>
+        </div>
+        <form data-toggle="validator" role="form" th:object="${labs}" th:action="@{/labs/confirmDel}" method="post">
+            <div class="box-body">
+                <input type="hidden" th:field="*{idLab}"/>
+				
+                <div class="form-group" style="display:none;">
+                    <label for="labCode">Lab Code</label>
+                    <input type="text" required="true" class="form-control" th:field="*{labCode}" id="labCode" />
+                </div>
+                <div class="form-group">
+                    <label for="labName">Lab Name</label>
+                    <input type="text" required="true" class="form-control" th:field="*{labName}" id="labName" readonly />
+                </div>
+                <div class="form-group" style="display:none;">
+                    <label for="password">Password</label>
+                    <input type="password" required="true" class="form-control" th:field="*{password}" id="password"/>
+                </div>
+                <div class="form-group" style="display:none;">
+                    <label for="labAddress">Lab Address</label>
+                    <input type="text" required="true" class="form-control" th:field="*{labAddress}" id="labAddress" />
+                </div>
+                <div class="form-group" style="display:none;">
+                    <label for="labPic">Lab PIC</label>
+                    <input type="text" required="true" class="form-control" th:field="*{labPic}" id="labPic" />
+                </div>
+                <div class="form-group" style="display:none;">
+                    <label for="labMail">Lab Mail</label>
+                    <input type="text" required="true" class="form-control" th:field="*{labMail}" id="labMail" />
+                </div>
+                <div class="form-group" style="display:none;">
+                    <label for="labContact">Lab Contact</label>
+                    <input type="text" required="true" class="form-control" th:field="*{labContact}" id="labContact" />
+                </div>
+            </div>
+            <div class="box-footer">
+                <button class="btn btn-danger" type="submit">Delete</button>
+                <a href="/labs" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

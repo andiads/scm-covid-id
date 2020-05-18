@@ -6,10 +6,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nusacamp.app.entity.Lab;
+import com.nusacamp.app.entity.ViewLabsList;
 import com.nusacamp.app.service.LabService;
+import com.nusacamp.app.service.ViewLabsListService;
+
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,7 +24,8 @@ import lombok.RequiredArgsConstructor;
 public class LabController {
 
 	private final LabService labService;
-	
+
+	private final ViewLabsListService viewLabsListService;
 	
 	@GetMapping
 	public String index() {
@@ -28,6 +34,7 @@ public class LabController {
 	
 	@GetMapping(value = "/{pageNumber}")
 	public String listLabs(@PathVariable Integer pageNumber, Model model) {
+
 		Page<Lab> page = labService.getList(pageNumber);
 
 		int current = page.getNumber() + 1;
@@ -60,5 +67,19 @@ public class LabController {
     public String editUser(@PathVariable int idLab, Model model) {
     	model.addAttribute("labs", labService.getLab(idLab));
     	return "labs/form";
-    }    
+
+    }
+    
+    @GetMapping("/delete/{idLab}")
+    public String deleteLab(@PathVariable int idLab, Model model) {
+    	model.addAttribute("labs", labService.getLab(idLab));
+    	return "labs/del";
+    }
+    
+    @PostMapping(value = "/confirmDel")
+    public String confirmDeleteLab(Lab lab) {
+    	labService.deleteLab(lab);
+        return "redirect:/labs";
+    }
+
 }
