@@ -1,6 +1,8 @@
 
 package com.nusacamp.app.controller.user;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -12,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nusacamp.app.entity.User;
+
+import com.nusacamp.app.entity.UserType;
 import com.nusacamp.app.service.UserService;
+import com.nusacamp.app.service.UserTypeService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,6 +27,8 @@ import lombok.RequiredArgsConstructor;
 public class UserController {
 
 	private final UserService userService;
+	
+	private final UserTypeService userTypeService;
 
 	@GetMapping
 	public String index() {
@@ -47,6 +54,8 @@ public class UserController {
 
 	@GetMapping("/add")
 	public String addUser(Model model) {
+		List<UserType> usertype = userTypeService.getUserType();
+		model.addAttribute("usertype", usertype);
 		model.addAttribute("users", new User());
 		return "users/form";
 
@@ -61,6 +70,8 @@ public class UserController {
         
     @GetMapping("/edit/{id}")
     public String editUser(@PathVariable int id, Model model) {
+    	List<UserType> usertype = userTypeService.getUserType();
+		model.addAttribute("usertype", usertype);
     	model.addAttribute("users", userService.getUser(id));
     	return "users/form";
     }    

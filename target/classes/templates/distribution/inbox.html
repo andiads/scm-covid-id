@@ -1,0 +1,68 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="layout">
+<head>
+    <title>Inbox Distribution</title>
+</head>
+<body>
+<section layout:fragment="header">
+    <h1>Inbox Distribution</h1>
+<ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+    <li class="active">Inbox Distribution</li>
+</ol>
+</section>
+<div layout:fragment="content">
+    <div class="box">
+        <div class="box-header with-border">
+            <h3 class="box-title">Inbox</h3>
+            <div class="box-tools pull-right">
+                <a href="/distribution/add" type="button" class="btn btn-box-tool"><i class="fa fa-plus"></i></a>
+                <br clear="all" />
+            </div>
+        </div>
+        <div class="box-body no-padding">
+            <table class="table table-striped">
+                <tr>
+                    <th>ID</th>
+                    <th>Source</th>
+                    <th>Destination</th>
+                    <th>Item Name</th>
+                    <th>Amount</th>
+                    <th>Send At</th>
+                    <th>Status</th>
+                    <th>Arrived At</th>
+                    <th>Action</th>
+                </tr>
+                <tr th:each="row : ${list}">
+                    <td th:text="${row.idDistribution}"></td>
+                    <td th:text="${row.sourceName}"></td>
+                    <td th:text="${row.labDestination}"></td>
+                    <td th:text="${row.itemName}"></td>
+                    <td th:text="${row.amount}"></td>
+                    <td th:text="${row.sendAt}"></td>
+                    <td th:if="${row.status} == 2">Accepted</td>
+                    <td th:if="${row.status} == 1">On the way</td>
+                    <td th:if="${row.status} == 0">Declined</td>
+                    <td th:if="${row.arrivedAt} == null">Not arrived yet</td>
+                    <td th:if="${row.arrivedAt} != null" th:text="${row.arrivedAt}"></td>
+                    <td>
+                        <a th:href="${'/distribution/inbox/confirm/' + row.idDistribution}">Confirm</a> |
+                        <a th:href="${'/distribution/inbox/delete/' + row.idDistribution}">Delete</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="box-footer clearfix">
+            <ul class="pagination pagination-sm no-margin pull-right">
+                <li><a href="/distribution/inbox/1">First</a></li>
+                <li th:each="p : ${#numbers.sequence(1, endIndex/beginIndex)}" th:class="${p == currentIndex} ? 'active' : ''">
+                    <a th:href="${'/distribution/inbox/' + p}" th:text="${p}"></a>
+                </li>
+                <li><a th:href="${'/distribution/inbox/' + endIndex}">Last</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

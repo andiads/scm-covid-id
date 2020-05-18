@@ -29,10 +29,16 @@ public class ViewDistributionListService {
 
         return getRepository().findAll(pageRequest);
 	}
+
+	public Page<ViewDistributionList> getAvailableList(Integer pageNumber) {
+		PageRequest pageRequest =
+				PageRequest.of(pageNumber - 1, PAGE_SIZE, Sort.Direction.ASC, "id_distribution");
+		
+		return this.viewDistributionListRepository.findAllAvailableDistribution(pageRequest);
+	}
 	
-	
-	
-	public ViewDistributionList getViewDistributionList(int idDistribution) {
+	public ViewDistributionList getViewDistributionListById(int idDistribution) {
+
 		return viewDistributionListRepository.findById(idDistribution).get();
 	}
 }

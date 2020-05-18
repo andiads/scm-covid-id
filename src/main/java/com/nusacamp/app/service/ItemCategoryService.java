@@ -1,5 +1,7 @@
 package com.nusacamp.app.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -28,8 +30,12 @@ public class ItemCategoryService {
                 PageRequest.of(pageNumber - 1, PAGE_SIZE, Sort.Direction.ASC, "idCategory");
 
         return getRepository().findAll(pageRequest);
-	}
+	}	
 	
+	public List<ItemCategory> getItemCategory(){
+		return itemCategoryRepo.findAll();
+	}
+		
 	public void saveItemCategory(ItemCategory itemCategory) {
 		itemCategoryRepo.save(itemCategory);
 	}

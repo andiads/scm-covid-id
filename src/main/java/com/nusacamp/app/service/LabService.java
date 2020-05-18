@@ -1,5 +1,7 @@
 package com.nusacamp.app.service;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -33,12 +35,21 @@ public class LabService {
         return getRepository().findAll(pageRequest);
 	}
 	
+	public List<Lab> getAllLabs() {
+		return labRepository.findAll();
+	}
+
 	public void saveLabs(Lab lab) {
 		labRepository.save(lab);
 	}
 	
 	public Lab getLab(int idLab) {
 		return labRepository.findById(idLab).get();
+	}
+
+	public void deleteLab(Lab lab) {
+		lab.setShown(0);
+		this.labRepository.save(lab);
 	}
 	
 }
