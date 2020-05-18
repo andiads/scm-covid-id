@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 17, 2020 at 03:32 PM
-
+-- Generation Time: May 17, 2020 at 07:38 PM
 -- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.3
+-- PHP Version: 7.4.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -22,6 +20,46 @@ SET time_zone = "+00:00";
 --
 -- Database: `covid`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `distibution_transaction`
+--
+
+CREATE TABLE `distibution_transaction` (
+  `id_distribution` int(11) NOT NULL,
+  `accepted` int(11) NOT NULL,
+  `accepted_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `id_item` int(11) NOT NULL,
+  `id_lab` int(11) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `send_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `distribution_transaction`
+--
+
+CREATE TABLE `distribution_transaction` (
+  `id_transaction` int(255) NOT NULL,
+  `id_item` int(11) NOT NULL,
+  `id_lab` int(11) NOT NULL,
+  `qty` int(255) NOT NULL,
+  `send_at` datetime NOT NULL DEFAULT current_timestamp(),
+  `accepted` int(1) NOT NULL,
+  `accepted_at` datetime DEFAULT current_timestamp(),
+  `id_distribution` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `distribution_transaction`
+--
+
+INSERT INTO `distribution_transaction` (`id_transaction`, `id_item`, `id_lab`, `qty`, `send_at`, `accepted`, `accepted_at`, `id_distribution`) VALUES
+(1, 1, 1, 100, '2020-05-17 23:49:53', 1, '2020-05-17 23:49:53', 0);
 
 -- --------------------------------------------------------
 
@@ -91,11 +129,10 @@ CREATE TABLE `item` (
 
 INSERT INTO `item` (`id_item`, `item_code`, `item_name`, `item_packaging`, `item_pieces_packaging`, `id_category`, `created_at`, `updated_at`, `shown`, `created_by`, `id_brand`, `id_distributor`, `id_sto`, `id_lab`) VALUES
 (1, '450', 'Covid-19 Medicine', 'Pack', 1, 1, '2020-05-15 23:57:26', '2020-05-15 23:57:26', 1, 1, 1, 1, NULL, NULL),
-(2, '460', 'DITHIOTHREITOL,5G', 'Bottle', 1, 1, '2020-05-16 00:17:26', '2020-05-16 00:17:26', 0, 0, 1, 2, NULL, NULL),
-(3, '121', 'degiherlambang', 'Bottle', 1, 1, '2020-05-16 16:25:25', '2020-05-16 16:25:25', 0, 0, 2, 4, NULL, NULL),
-(4, '555', 'Covid-19 Medicine', 'Bottle', 1, 1, '2020-05-16 18:31:09', '2020-05-16 18:31:09', 0, 0, 1, 3, NULL, NULL),
-(5, '11', 'Positif Kontrol RP', 'Tube', 1, 2, '2020-05-16 18:34:16', '2020-05-16 18:34:16', 0, 0, 1, 3, NULL, NULL),
-(6, NULL, NULL, NULL, 0, 0, '2020-05-16 18:36:58', '2020-05-16 18:36:58', 0, 1, 0, 0, NULL, NULL);
+(2, '460', 'DITHIOTHREITOL,5G', 'Bottle', 1, 1, '2020-05-16 00:17:26', '2020-05-16 00:17:26', 1, 1, 1, 2, NULL, NULL),
+(3, '121', 'degiherlambang', 'Bottle', 1, 1, '2020-05-16 16:25:25', '2020-05-16 16:25:25', 1, 1, 2, 4, NULL, NULL),
+(4, '555', 'Covid-19 Medicine', 'Bottle', 1, 1, '2020-05-16 18:31:09', '2020-05-16 18:31:09', 1, 1, 1, 3, NULL, NULL),
+(5, '11', 'Positif Kontrol RP', 'Tube', 1, 2, '2020-05-16 18:34:16', '2020-05-16 18:34:16', 1, 1, 1, 3, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -371,7 +408,6 @@ DROP TABLE IF EXISTS `view_items_list`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_items_list`  AS  select `item`.`id_item` AS `id_item`,`item`.`item_name` AS `item_name`,`item`.`item_packaging` AS `item_packaging`,`item`.`item_pieces_packaging` AS `item_pieces_packaging`,`item_brand`.`brand_name` AS `brand_name`,`item_category`.`category_name` AS `category_name`,`item_distributor`.`distributor_name` AS `distributor_name`,`item`.`shown` AS `shown`,`item`.`created_at` AS `created_at`,`item`.`created_by` AS `created_by`,`item`.`updated_at` AS `updated_at` from (((`item` join `item_brand` on(`item`.`id_brand` = `item_brand`.`id_brand`)) join `item_category` on(`item`.`id_category` = `item_category`.`id_category`)) join `item_distributor` on(`item`.`id_distributor` = `item_distributor`.`id_distributor`)) ;
 
-
 -- --------------------------------------------------------
 
 --
@@ -402,6 +438,18 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `distibution_transaction`
+--
+ALTER TABLE `distibution_transaction`
+  ADD PRIMARY KEY (`id_distribution`);
+
+--
+-- Indexes for table `distribution_transaction`
+--
+ALTER TABLE `distribution_transaction`
+  ADD PRIMARY KEY (`id_transaction`);
 
 --
 -- Indexes for table `flyway_schema_history`
@@ -476,6 +524,18 @@ ALTER TABLE `user_type`
 --
 
 --
+-- AUTO_INCREMENT for table `distibution_transaction`
+--
+ALTER TABLE `distibution_transaction`
+  MODIFY `id_distribution` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `distribution_transaction`
+--
+ALTER TABLE `distribution_transaction`
+  MODIFY `id_transaction` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `id_category`
 --
 ALTER TABLE `id_category`
@@ -485,7 +545,7 @@ ALTER TABLE `id_category`
 -- AUTO_INCREMENT for table `item`
 --
 ALTER TABLE `item`
-  MODIFY `id_item` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_item` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `item_brand`

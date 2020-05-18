@@ -1,6 +1,7 @@
 package com.nusacamp.app.service;
 
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.domain.Page;
@@ -34,6 +35,10 @@ public class ItemService {
         return getRepository().findAll(pageRequest);
 	}
 
+	
+	public List<Item> getAllItem() {
+		return itemRepository.findAll();
+	}
 
 	public void saveItem(Item item) {
 		item.setShown(1);
