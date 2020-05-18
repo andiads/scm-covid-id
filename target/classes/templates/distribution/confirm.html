@@ -3,27 +3,27 @@
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="layout">
 <head>
-<title>Registration Distribution</title>
+<title>Confirm Arrived Distribution</title>
 </head>
 <body>
 	<section layout:fragment="header">
-		<h1>Distribution Transaction</h1>
+		<h1>Confirm Arrived Distribution</h1>
 		<ol class="breadcrumb">
 			<li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-			<li class="active">Distribution Transaction</li>
+			<li class="active">Confirm Arrived Distribution</li>
 		</ol>
 	</section>
 	<div layout:fragment="content">
 		<div class="box">
 			<div class="box-header with-border">
-				<h3 class="box-title">Form</h3>
+				<h3 class="box-title">Confirmation</h3>
 				<div class="box-tools pull-right">
 					<a href="/brand" type="button" class="btn btn-box-tool"><i
 						class="fa fa-list-ul"></i></a>
 				</div>
 			</div>
 			<form class="form-horizontal" data-toggle="validator" role="form"
-				th:object="${distribtrx}" th:action="@{/distribution/save}"
+				th:object="${distribtrx}" th:action="@{/distribution/inbox/confirm/save}"
 				method="post">
 				<div class="box-body">
 					<input type="hidden" th:field="*{idStockOrder}" />
@@ -32,10 +32,20 @@
 						<label class="col-sm-1 control-label">Item</label>
 						<div class="col-sm-3">
 							<select class="form-control" th:field="*{idItem}"
-								required="true">
+								required="true" disabled>
 								<option value="0">Select Item</option>
 								<option th:each="items : ${item}" th:value="${items.idItem}"
 									th:text="${items.itemName}"></option>
+							</select>
+						</div>
+						
+						<label class="col-sm-1 control-label">Status</label>
+						<div class="col-sm-3">
+							<select class="form-control" th:field="*{status}" required="true">
+								<option value="99">Select Status</option>
+								<option value="2">Accept</option>
+								<option value="0">Decline</option>
+								<option value="1">On the way</option>
 							</select>
 						</div>
 					</div>
@@ -46,12 +56,12 @@
 						<label class="col-sm-1 control-label" for="qty">Quantity</label>
 						<div class="col-sm-3">
 							<input type="text" required="true" class="form-control"
-								th:field="*{amount}" id="qty" />
+								th:field="*{amount}" id="qty" disabled/>
 						</div>
 
 						<label class="col-sm-1 control-label">Source</label>
 						<div class="col-sm-3">
-							<select class="form-control" th:field="*{sourcePoint}" required="true">
+							<select class="form-control" th:field="*{sourcePoint}" required="true" disabled>
 								<option value="0">Select Source</option>
 								<option th:each="sources : ${source} " th:value="${sources.idSource}"
 									th:text="${sources.sourceName}"></option>
@@ -60,7 +70,7 @@
 
 						<label class="col-sm-1 control-label">Destination</label>
 						<div class="col-sm-3">
-							<select class="form-control" th:field="*{endPoint}" required="true">
+							<select class="form-control" th:field="*{endPoint}" required="true" disabled>
 								<option value="0">Select Lab</option>
 								<option th:each="labs : ${lab} " th:value="${labs.idLab}"
 									th:text="${labs.labName}"></option>
@@ -73,7 +83,7 @@
 
 				</div>
 				<div class="box-footer">
-					<button class="btn btn-primary" type="submit">Save</button>
+					<button class="btn btn-primary" type="submit">Confirm</button>
 				</div>
 			</form>
 		</div>

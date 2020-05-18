@@ -2,20 +2,20 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="layout">
 <head>
-    <title>Distribution</title>
+    <title>Inbox Distribution</title>
 </head>
 <body>
 <section layout:fragment="header">
-    <h1>Distribution</h1>
+    <h1>Inbox Distribution</h1>
 <ol class="breadcrumb">
     <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-    <li class="active">Distribution</li>
+    <li class="active">Inbox Distribution</li>
 </ol>
 </section>
 <div layout:fragment="content">
     <div class="box">
         <div class="box-header with-border">
-            <h3 class="box-title">Lists</h3>
+            <h3 class="box-title">Inbox</h3>
             <div class="box-tools pull-right">
                 <a href="/distribution/add" type="button" class="btn btn-box-tool"><i class="fa fa-plus"></i></a>
                 <br clear="all" />
@@ -47,19 +47,19 @@
                     <td th:if="${row.arrivedAt} == null">Not arrived yet</td>
                     <td th:if="${row.arrivedAt} != null" th:text="${row.arrivedAt}"></td>
                     <td>
-                        <a th:href="${'/distribution/edit/' + row.idDistribution}">Edit</a> |
-                        <a th:href="${'/distribution/delete/' + row.idDistribution}">Delete</a>
+                        <a th:href="${'/distribution/inbox/confirm/' + row.idDistribution}">Confirm</a> |
+                        <a th:href="${'/distribution/inbox/delete/' + row.idDistribution}">Delete</a>
                     </td>
                 </tr>
             </table>
         </div>
         <div class="box-footer clearfix">
             <ul class="pagination pagination-sm no-margin pull-right">
-                <li><a href="/distribution/1">First</a></li>
+                <li><a href="/distribution/inbox/1">First</a></li>
                 <li th:each="p : ${#numbers.sequence(1, endIndex/beginIndex)}" th:class="${p == currentIndex} ? 'active' : ''">
-                    <a th:href="${'/distribution/' + p}" th:text="${p}"></a>
+                    <a th:href="${'/distribution/inbox/' + p}" th:text="${p}"></a>
                 </li>
-                <li><a th:href="${'/distribution/' + endIndex}">Last</a></li>
+                <li><a th:href="${'/distribution/inbox/' + endIndex}">Last</a></li>
             </ul>
         </div>
     </div>

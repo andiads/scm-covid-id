@@ -1,5 +1,6 @@
 package com.nusacamp.app.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,22 +11,17 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "view_distribution_list")
-public class ViewDistributionList {
-
+@Table(name="stock_source")
+public class StockSource {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idDistribution;
-	private String labDestination;
+	@Column(name="id_source")
+	private int idSource;
+	@Column(name="source_name")
 	private String sourceName;
-	private String itemName;
-	private int amount;
-	private int status;
-	private String sendAt;
-	private String arrivedAt;
+	@Column(name="shown")
 	private int shown;
-	private String createdAt;
-	private String updatedAt;
 	
 	
 }
