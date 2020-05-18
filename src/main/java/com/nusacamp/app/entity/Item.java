@@ -39,4 +39,5 @@ public class Item {
 	private int idBrand;
 	@Column(name="id_distributor")
 	private int idDistributor;
+
 }

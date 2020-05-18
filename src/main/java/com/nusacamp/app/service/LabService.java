@@ -1,6 +1,5 @@
 package com.nusacamp.app.service;
 
-
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -36,7 +35,6 @@ public class LabService {
         return getRepository().findAll(pageRequest);
 	}
 	
-
 	public List<Lab> getAllLabs() {
 		return labRepository.findAll();
 	}

@@ -15,7 +15,6 @@ import com.nusacamp.app.entity.ViewLabsList;
 import com.nusacamp.app.service.LabService;
 import com.nusacamp.app.service.ViewLabsListService;
 
-
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -34,7 +33,6 @@ public class LabController {
 	
 	@GetMapping(value = "/{pageNumber}")
 	public String listLabs(@PathVariable Integer pageNumber, Model model) {
-
 		Page<Lab> page = labService.getList(pageNumber);
 
 		int current = page.getNumber() + 1;

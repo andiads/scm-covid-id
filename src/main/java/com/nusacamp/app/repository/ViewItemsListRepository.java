@@ -19,7 +19,7 @@ public interface ViewItemsListRepository extends JpaRepository<ViewItemsList, In
 	public ViewItemsList findByItemName(@Param("itemName") String itemName);
 	
 	public ViewItemsList findByCategoryName(@Param("categoryName") String categoryName);
-	
+
 	@Query(
 			value="SELECT * FROM view_items_list v WHERE v.shown = 1",
 			nativeQuery = true)
