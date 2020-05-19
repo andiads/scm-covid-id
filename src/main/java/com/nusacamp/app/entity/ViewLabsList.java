@@ -30,5 +30,15 @@ public class ViewLabsList {
 	private String labMail;
 	@Column(name = "lab_contact")
 	private String labContact;
+	@Column(name = "shown")
+	private int shown;
+	@Column(name = "lab_pic")
+	private String labPic;
+	@Column(name = "created_at")
+	private String createdAt;
+	@Column(name = "updated_at")
+	private String updatedAt;
+	@Column(name = "created_by")
+	private String createdBy;
 	
 }

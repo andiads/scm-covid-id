@@ -42,6 +42,7 @@ public class LabService {
 	}
 
 	public void saveLabs(Lab lab) {
+		lab.setShown(1);
 		labRepository.save(lab);
 	}
 	
