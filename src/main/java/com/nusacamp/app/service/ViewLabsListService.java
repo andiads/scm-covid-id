@@ -6,6 +6,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
+import com.nusacamp.app.entity.Lab;
 import com.nusacamp.app.entity.ViewLabsList;
 import com.nusacamp.app.repository.ViewLabsListRepository;
 
@@ -31,5 +32,10 @@ public class ViewLabsListService {
 
         return getRepository().findAll(pageRequest);
 	}
-	
+
+	public Page<ViewLabsList> getAvailableList(Integer pageNumber) {
+		PageRequest pageRequest =
+				PageRequest.of(pageNumber - 1, PAGE_SIZE, Sort.Direction.ASC, "id_lab");
+		return this.viewLabsListRepository.findAllAvailableLabs(pageRequest);
+	}
 }

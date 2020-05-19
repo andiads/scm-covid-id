@@ -28,7 +28,7 @@ public class UserController {
 	private final UserService userService;
 	
 	private final UserTypeService userTypeService;
-
+	
 	@GetMapping
 	public String index() {
 		return "redirect:/users/1";
