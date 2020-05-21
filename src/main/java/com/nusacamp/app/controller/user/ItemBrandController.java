@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nusacamp.app.entity.ItemBrand;
+import com.nusacamp.app.entity.ViewItemBrand;
 import com.nusacamp.app.service.ItemBrandService;
+import com.nusacamp.app.service.ViewItemBrandService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,6 +21,8 @@ import lombok.RequiredArgsConstructor;
 public class ItemBrandController {
 	
 	private final ItemBrandService itemBrandService;
+	private final ViewItemBrandService viewItemBrandService;
+	private static ItemBrand brand;
 	
 	
 	@GetMapping
@@ -28,7 +32,8 @@ public class ItemBrandController {
 	
 	@GetMapping(value = "/{pageNumber}")
 	public String listUser(@PathVariable Integer pageNumber, Model model) {
-		Page<ItemBrand> page = itemBrandService.getList(pageNumber);
+//		Page<ItemBrand> page = itemBrandService.getList(pageNumber);
+		Page<ViewItemBrand> page = viewItemBrandService.getList(pageNumber);
 
 		int current = page.getNumber() + 1;
 		int begin = Math.max(1, current - 5);
@@ -60,5 +65,19 @@ public class ItemBrandController {
 		model.addAttribute("itembrand", itemBrandService.getItemBrand(idBrand));
 		return "itembrand/form";
 	}
+	
+	@GetMapping("/delete/{idBrand}")
+    public String deleteBrand(@PathVariable int idBrand, Model model) {
+    	model.addAttribute("itembrand", this.itemBrandService.getItemBrand(idBrand));
+    	this.brand = this.itemBrandService.getItemBrand(idBrand);
+    	return "itembrand/del";
+    }
+    
+    @GetMapping("/confirmDel")
+    public String confirmDeleteBrand(ItemBrand itemBrand) {
+    	brand.setIdBrand(this.brand.getIdBrand());
+    	itemBrandService.deleteBrand(brand);
+        return "redirect:/brand";
+    }
 
 }

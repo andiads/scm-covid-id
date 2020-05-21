@@ -9,7 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nusacamp.app.entity.ItemCategory;
+import com.nusacamp.app.entity.ViewItemCategory;
 import com.nusacamp.app.service.ItemCategoryService;
+import com.nusacamp.app.service.ViewItemCategoryService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,6 +21,8 @@ import lombok.RequiredArgsConstructor;
 public class ItemCategoryController {
 
 	private final ItemCategoryService itemCatService;
+	private final ViewItemCategoryService viewItemCatService;
+	private static ItemCategory category;
 	
 	@GetMapping
 	public String index() {
@@ -27,7 +31,8 @@ public class ItemCategoryController {
 	
 	@GetMapping(value = "/{pageNumber}")
 	public String listUser(@PathVariable Integer pageNumber, Model model) {
-		Page<ItemCategory> page = itemCatService.getList(pageNumber);
+//		Page<ItemCategory> page = itemCatService.getList(pageNumber);
+		Page<ViewItemCategory> page = viewItemCatService.getList(pageNumber);
 
 		int current = page.getNumber() + 1;
 		int begin = Math.max(1, current - 5);
@@ -59,4 +64,18 @@ public class ItemCategoryController {
 		model.addAttribute("itemcat", itemCatService.getItemCategory(idCategory));
 		return"itemcategory/form";
 	}
+	
+	@GetMapping("/delete/{idCategory}")
+    public String deleteCategory(@PathVariable int idCategory, Model model) {
+    	model.addAttribute("itemcat", this.itemCatService.getItemCategory(idCategory));
+    	this.category = this.itemCatService.getItemCategory(idCategory);
+    	return "itemcategory/del";
+    }
+    
+    @GetMapping("/confirmDel")
+    public String confirmDeleteCategory(ItemCategory itemCategory) {
+    	category.setIdCategory(this.category.getIdCategory());
+    	itemCatService.deleteCategory(category);
+        return "redirect:/category";
+    }
 }

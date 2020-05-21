@@ -18,6 +18,7 @@ import com.nusacamp.app.entity.Item;
 import com.nusacamp.app.entity.ItemBrand;
 import com.nusacamp.app.entity.ItemCategory;
 import com.nusacamp.app.entity.ItemDistributor;
+import com.nusacamp.app.entity.Lab;
 import com.nusacamp.app.entity.User;
 import com.nusacamp.app.entity.ViewItemsList;
 import com.nusacamp.app.repository.ItemRepository;
@@ -49,6 +50,8 @@ public class ItemController {
 	
 	// should use viewItemsList to render the view contents?
 	private final ViewItemsListService viewItemsListService;
+
+	private static Item items;
 	
 	@GetMapping
 	public String index() {
@@ -102,12 +105,17 @@ public class ItemController {
     } 
     
     @GetMapping("/delete/{idItem}")
-    public String deleteItem(@PathVariable int idItem, Item item){
-    	//item.setShown(0);
-    	item.setIdItem(idItem);
-    	itemService.deleteItem(item);
-    	return"redirect:/items";
+    public String deleteItem(@PathVariable int idItem, Model model) {
+    	model.addAttribute("items", this.itemService.getById(idItem));
+    	this.items = this.itemService.getById(idItem);
+    	return "items/del";
     }
     
+    @GetMapping("/confirmDel")
+    public String confirmDeleteItem(Item item) {
+    	item.setIdItem(this.items.getIdItem());
+    	itemService.deleteItem(item);
+        return "redirect:/items";
+    }
     
 }

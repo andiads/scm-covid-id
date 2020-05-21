@@ -9,44 +9,29 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import com.nusacamp.app.entity.ItemBrand;
+import com.nusacamp.app.entity.ViewItemBrand;
 import com.nusacamp.app.repository.ItemBrandRepository;
+import com.nusacamp.app.repository.ViewItemBrandRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class ItemBrandService {
+public class ViewItemBrandService {
 	
-	private final ItemBrandRepository itemBrandRepo;
+	private final ViewItemBrandRepository viewItemBrandRepo;
 	
 	private static final int PAGE_SIZE = 5;
 	
-	protected JpaRepository<ItemBrand, Integer> getRepository(){
-		return itemBrandRepo;
+	protected JpaRepository<ViewItemBrand, Integer> getRepository(){
+		return viewItemBrandRepo;
 	}
 	
-	public Page<ItemBrand> getList(Integer pageNumber) {
+	public Page<ViewItemBrand> getList(Integer pageNumber) {
 		PageRequest pageRequest =
                 PageRequest.of(pageNumber - 1, PAGE_SIZE, Sort.Direction.ASC, "idBrand");
 
         return getRepository().findAll(pageRequest);
-	}
-	
-	public List<ItemBrand> getItemBrand(){
-		return itemBrandRepo.findAll();
-	}
-	
-	public void saveItemBrand(ItemBrand itemBrand) {
-		itemBrandRepo.save(itemBrand);
-	}
-	
-	public ItemBrand getItemBrand(int idBrand) {
-		return itemBrandRepo.findById(idBrand).get();
-	}
-	
-	public void deleteBrand(ItemBrand itemBrand) {
-		itemBrand.setShown(0);
-		this.itemBrandRepo.save(itemBrand);
 	}
 
 }
