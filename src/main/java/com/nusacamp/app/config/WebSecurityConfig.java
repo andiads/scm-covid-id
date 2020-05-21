@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,7 +34,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private UserDetailsService userDetailsService;
 	
-	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http
@@ -44,7 +44,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				"/img/**",
 				"/webjars/**").permitAll()
 		.antMatchers("/bootstrap/**", "/dist/**", "/plugins/**").permitAll()
-        .anyRequest().authenticated()
+        .antMatchers("*").hasRole("ADMIN")
+        .antMatchers("/users/**","/usertype/**").hasAuthority("ADMIN")
+        .antMatchers("/#").hasAnyAuthority("ADMIN","KEMENKES","LAB","BNPB")
+        .antMatchers("/items/**").hasAnyAuthority("ADMIN","KEMENKES")
+        .antMatchers("/distribution/inbox/").hasAnyAuthority("ADMIN","LAB")
+        .antMatchers("/distribution/add").hasAnyAuthority("ADMIN","KEMENKES")
+        .antMatchers("/labs/add").hasAnyAuthority("ADMIN","LAB")
+        .antMatchers("/brand/**","/category/**","/distributor/**","/stocksource/**").hasAnyAuthority("ADMIN","KEMENKES")
+		.anyRequest().authenticated()
         .and()
     .formLogin()
         .failureUrl("/login?error")
@@ -55,7 +63,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     .logout()
         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
         .logoutSuccessUrl("/login")
-        .permitAll();
+        .permitAll()
+        .and()
+        .exceptionHandling().accessDeniedPage("/403");
 	}
 	
 	@Bean
@@ -65,8 +75,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+		auth.authenticationProvider(authenticationProvider());
 	}
+	
+	@Bean
+	public DaoAuthenticationProvider authenticationProvider() {
+		DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
+		provider.setPasswordEncoder(passwordEncoder());
+		provider.setUserDetailsService(userDetailsService);
+		return provider;
+	}
+	
 	
 
 }

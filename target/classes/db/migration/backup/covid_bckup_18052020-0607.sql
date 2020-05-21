@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 18, 2020 at 01:07 PM
+-- Generation Time: May 17, 2020 at 07:38 PM
 -- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.3
+-- PHP Version: 7.4.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -21,6 +20,22 @@ SET time_zone = "+00:00";
 --
 -- Database: `covid`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `distibution_transaction`
+--
+
+CREATE TABLE `distibution_transaction` (
+  `id_distribution` int(11) NOT NULL,
+  `accepted` int(11) NOT NULL,
+  `accepted_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `id_item` int(11) NOT NULL,
+  `id_lab` int(11) NOT NULL,
+  `qty` int(11) NOT NULL,
+  `send_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -230,46 +245,15 @@ INSERT INTO `labs` (`id_lab`, `lab_code`, `password`, `lab_name`, `lab_address`,
 
 CREATE TABLE `stock_order` (
   `id_sto` int(11) NOT NULL,
-  `id_item` int(11) NOT NULL,
-  `source_point` int(11) NOT NULL,
-  `end_point` int(11) NOT NULL,
-  `amount` int(11) NOT NULL,
-  `status` int(11) NOT NULL DEFAULT 0,
-  `sto_send_time` datetime NOT NULL DEFAULT current_timestamp(),
-  `sto_arrive_time` datetime DEFAULT NULL,
+  `sto_send_time` datetime NOT NULL,
+  `sto_arrive_time` datetime NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `shown` int(11) NOT NULL DEFAULT 1
+  `shown` int(11) NOT NULL DEFAULT 1,
+  `id_stock_order` int(11) NOT NULL,
+  `stock_arrive_time` varchar(255) DEFAULT NULL,
+  `stock_send_time` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `stock_order`
---
-
-INSERT INTO `stock_order` (`id_sto`, `id_item`, `source_point`, `end_point`, `amount`, `status`, `sto_send_time`, `sto_arrive_time`, `created_at`, `updated_at`, `shown`) VALUES
-(1, 1, 1, 5, 200, 0, '2020-05-18 15:43:23', NULL, '2020-05-18 15:43:23', '2020-05-18 15:43:23', 1),
-(2, 2, 1, 4, 300, 2, '2020-05-18 15:52:08', '2020-05-18 17:42:04', '2020-05-18 15:52:08', '2020-05-18 15:52:08', 1),
-(3, 0, 0, 0, 0, 0, '2020-05-18 18:06:32', NULL, '2020-05-18 18:06:32', '2020-05-18 18:06:32', 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `stock_source`
---
-
-CREATE TABLE `stock_source` (
-  `id_source` int(100) NOT NULL,
-  `source_name` varchar(100) NOT NULL,
-  `shown` int(11) NOT NULL DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `stock_source`
---
-
-INSERT INTO `stock_source` (`id_source`, `source_name`, `shown`) VALUES
-(1, 'KANTOR PUSAT, JAKARTA', 1),
-(2, 'KANTOR PUSAT, TANGERANG', 1);
 
 -- --------------------------------------------------------
 
@@ -333,17 +317,13 @@ INSERT INTO `user_type` (`id`, `type_name`) VALUES
 -- (See below for the actual view)
 --
 CREATE TABLE `view_distribution_list` (
-`id_distribution` int(11)
-,`lab_destination` varchar(200)
-,`source_name` varchar(100)
+`id_lab` int(11)
+,`lab_name` varchar(200)
 ,`item_name` varchar(255)
-,`amount` int(11)
-,`status` int(11)
-,`send_at` datetime
-,`arrived_at` datetime
-,`shown` int(11)
-,`created_at` datetime
-,`updated_at` datetime
+,`id_distributor` int(11)
+,`distributor_name` varchar(64)
+,`sto_send_time` datetime
+,`sto_arrive_time` datetime
 );
 
 -- --------------------------------------------------------
@@ -379,11 +359,6 @@ CREATE TABLE `view_labs_list` (
 ,`lab_address` varchar(300)
 ,`lab_mail` varchar(100)
 ,`lab_contact` varchar(20)
-,`shown` int(11)
-,`lab_pic` varchar(150)
-,`created_at` datetime
-,`updated_at` datetime
-,`created_by` varchar(200)
 );
 
 -- --------------------------------------------------------
@@ -422,7 +397,7 @@ CREATE TABLE `view_users_list` (
 --
 DROP TABLE IF EXISTS `view_distribution_list`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_distribution_list`  AS  select `stock_order`.`id_sto` AS `id_distribution`,`labs`.`lab_name` AS `lab_destination`,`stock_source`.`source_name` AS `source_name`,`item`.`item_name` AS `item_name`,`stock_order`.`amount` AS `amount`,`stock_order`.`status` AS `status`,`stock_order`.`sto_send_time` AS `send_at`,`stock_order`.`sto_arrive_time` AS `arrived_at`,`stock_order`.`shown` AS `shown`,`stock_order`.`created_at` AS `created_at`,`stock_order`.`updated_at` AS `updated_at` from (((`stock_order` join `labs` on(`stock_order`.`end_point` = `labs`.`id_lab`)) join `stock_source` on(`stock_order`.`source_point` = `stock_source`.`id_source`)) join `item` on(`stock_order`.`id_item` = `item`.`id_item`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_distribution_list`  AS  select `labs`.`id_lab` AS `id_lab`,`labs`.`lab_name` AS `lab_name`,`item`.`item_name` AS `item_name`,`item_distributor`.`id_distributor` AS `id_distributor`,`item_distributor`.`distributor_name` AS `distributor_name`,`stock_order`.`sto_send_time` AS `sto_send_time`,`stock_order`.`sto_arrive_time` AS `sto_arrive_time` from (((`labs` join `item` on(`labs`.`id_lab` = `item`.`id_item`)) join `item_distributor` on(`item`.`id_item` = `item_distributor`.`distributor_name`)) join `stock_order` on(`item`.`id_item` = `stock_order`.`id_sto`)) ;
 
 -- --------------------------------------------------------
 
@@ -440,8 +415,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `view_labs_list`;
 
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_labs_list`  AS  select `labs`.`id_lab` AS `id_lab`,`labs`.`lab_code` AS `lab_code`,`labs`.`lab_name` AS `lab_name`,`labs`.`lab_address` AS `lab_address`,`labs`.`lab_mail` AS `lab_mail`,`labs`.`lab_contact` AS `lab_contact`,`labs`.`shown` AS `shown`,`labs`.`lab_pic` AS `lab_pic`,`labs`.`created_at` AS `created_at`,`labs`.`updated_at` AS `updated_at`,`user`.`fullname` AS `created_by` from (`labs` join `user`) where `labs`.`id_lab` <> 0 ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_labs_list`  AS  select `labs`.`id_lab` AS `id_lab`,`labs`.`lab_code` AS `lab_code`,`labs`.`lab_name` AS `lab_name`,`labs`.`lab_address` AS `lab_address`,`labs`.`lab_mail` AS `lab_mail`,`labs`.`lab_contact` AS `lab_contact` from `labs` where `labs`.`id_lab` <> 0 ;
 
 -- --------------------------------------------------------
 
@@ -464,6 +438,12 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `distibution_transaction`
+--
+ALTER TABLE `distibution_transaction`
+  ADD PRIMARY KEY (`id_distribution`);
 
 --
 -- Indexes for table `distribution_transaction`
@@ -521,12 +501,6 @@ ALTER TABLE `stock_order`
   ADD PRIMARY KEY (`id_sto`);
 
 --
--- Indexes for table `stock_source`
---
-ALTER TABLE `stock_source`
-  ADD PRIMARY KEY (`id_source`);
-
---
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -548,6 +522,12 @@ ALTER TABLE `user_type`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `distibution_transaction`
+--
+ALTER TABLE `distibution_transaction`
+  MODIFY `id_distribution` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `distribution_transaction`
@@ -595,13 +575,7 @@ ALTER TABLE `labs`
 -- AUTO_INCREMENT for table `stock_order`
 --
 ALTER TABLE `stock_order`
-  MODIFY `id_sto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `stock_source`
---
-ALTER TABLE `stock_source`
-  MODIFY `id_source` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_sto` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user`

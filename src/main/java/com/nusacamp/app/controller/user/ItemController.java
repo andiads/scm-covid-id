@@ -6,13 +6,11 @@ import javax.validation.Valid;
 
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -51,14 +49,13 @@ public class ItemController {
 	
 	// should use viewItemsList to render the view contents?
 	private final ViewItemsListService viewItemsListService;
-  
+	
 	@GetMapping
 	public String index() {
 		return "redirect:/items/1";
 	}
 	
 	@GetMapping(value = "/{pageNumber}")
-
 	public String listItem(@PathVariable Integer pageNumber, Model model) {
 		Page<ViewItemsList> page = viewItemsListService.getAllAvailableList(pageNumber);
 
@@ -81,7 +78,6 @@ public class ItemController {
 		model.addAttribute("itemdis", itemdis);
 		model.addAttribute("itemcat", itemcat);
 		model.addAttribute("itembrand", itembr);
-
 		model.addAttribute("items", new Item());
 		return "items/form";
 
@@ -113,5 +109,5 @@ public class ItemController {
     	return"redirect:/items";
     }
     
-
+    
 }

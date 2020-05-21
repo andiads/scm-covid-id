@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 21, 2020 at 08:40 AM
+-- Generation Time: May 18, 2020 at 01:07 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -220,8 +220,7 @@ INSERT INTO `labs` (`id_lab`, `lab_code`, `password`, `lab_name`, `lab_address`,
 (3, '501', 'jabar', 'Lab Jawa Barat', 'Bandung', 'PIC', 'lab_jabar@kemenkes.gov.id', '2020-05-16 00:56:15', '2020-05-16 00:56:15', 1, 1, '112255'),
 (4, '502', 'jateng', 'Lab Jawa Tengah', 'Semarang', 'PIC', 'lab_jateng@kemenkes.gov.id', '2020-05-16 00:57:49', '2020-05-16 00:57:49', 1, 1, '112266'),
 (5, '010101', 'labbali', 'Lab Bali', 'Kuta Bali', 'PIC', 'lab_bali@kemenkes.gov.id', '2020-05-17 14:02:42', '2020-05-17 14:02:42', 1, 1, '112299'),
-(6, '0992', 'labmalang99', 'Lab Malang 1', 'Malang, Jawa Timur', 'none', 'lab_malang@kemenkes.gov.id', '2020-05-17 19:06:18', '2020-05-17 19:06:18', 1, 1, '111231'),
-(7, '0282', '', 'Lab Madura', 'Madura, Jawa Timur', 'none', 'lab_madura@kemenkes.gov.id', '2020-05-18 18:41:50', '2020-05-18 18:41:50', 1, 0, '62788821');
+(6, '0992', 'labmalang99', 'Lab Malang 1', 'Malang, Jawa Timur', 'none', 'lab_malang@kemenkes.gov.id', '2020-05-17 19:06:18', '2020-05-17 19:06:18', 1, 1, '111231');
 
 -- --------------------------------------------------------
 
@@ -293,11 +292,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `mail`, `fullname`, `password`, `user_type`, `created_at`, `updated_at`) VALUES
-(1, 'nusacamp@scmcovid.gov.id', 'Nusacamp', '$2a$10$cN0obQ0Z0Tv/kz5tfs4nh.b5GHVaGRc7N/wwqfulob.pUUqdS12TS', 1, '2020-05-15 11:12:35', '2020-05-15 11:12:35'),
-(2, 'dummy@kemenkes.gov.id', 'Dummy Kemenkes 1', '$2a$10$1/mBzFWeiMjgSFufQGVBPu.fFDMpNpfiSfZ33w7.FzE/ZDOPrR.hS', 2, '2020-05-19 11:50:04', '2020-05-19 11:50:04'),
-(3, 'lab_jkt@indo.labs.id', 'Lab Jakarta', '$2a$10$Ip3BMfmSE3HSNu.CpKsy3euU5wCdBx83FCBgnL/NlpfFQKtL3X7Gu', 3, '2020-05-19 14:21:05', '2020-05-19 14:21:05'),
-(4, 'lab_bdg@indo.labs.id', 'Lab Bandung', '$2a$10$UsY6B.h28A.bnJD9jpKmkeXeUzeIhGkx/Xihg71KqGUlXe3arA/BS', 3, '2020-05-19 15:37:14', '2020-05-19 15:37:14'),
-(5, 'dummy2@kemenkes.gov.id', 'Dummy Kemenkes 2', '$2a$10$OBF5ry5NbIiDQrU3LiHUkOlEBhvipxD7zuoMfaqA8WxUwCv1gXFW.', 2, '2020-05-19 16:13:19', '2020-05-19 16:13:19');
+(1, 'nusacamp@scmcovid.gov.id', 'Nusacamp', '$2a$10$cN0obQ0Z0Tv/kz5tfs4nh.b5GHVaGRc7N/wwqfulob.pUUqdS12TS', 1, '2020-05-15 11:12:35', '2020-05-15 11:12:35');
 
 -- --------------------------------------------------------
 
@@ -445,7 +440,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `view_labs_list`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_labs_list`  AS  select `labs`.`id_lab` AS `id_lab`,`labs`.`lab_code` AS `lab_code`,`labs`.`lab_name` AS `lab_name`,`labs`.`lab_address` AS `lab_address`,`labs`.`lab_mail` AS `lab_mail`,`labs`.`lab_contact` AS `lab_contact`,`labs`.`shown` AS `shown`,`labs`.`lab_pic` AS `lab_pic`,`labs`.`created_at` AS `created_at`,`labs`.`updated_at` AS `updated_at`,`user`.`fullname` AS `created_by` from (`labs` join `user`) where `labs`.`created_by` = `user`.`id` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_labs_list`  AS  select `labs`.`id_lab` AS `id_lab`,`labs`.`lab_code` AS `lab_code`,`labs`.`lab_name` AS `lab_name`,`labs`.`lab_address` AS `lab_address`,`labs`.`lab_mail` AS `lab_mail`,`labs`.`lab_contact` AS `lab_contact`,`labs`.`shown` AS `shown`,`labs`.`lab_pic` AS `lab_pic`,`labs`.`created_at` AS `created_at`,`labs`.`updated_at` AS `updated_at`,`user`.`fullname` AS `created_by` from (`labs` join `user`) where `labs`.`id_lab` <> 0 ;
 
 -- --------------------------------------------------------
 
@@ -463,7 +458,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `view_users_list`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_users_list`  AS  select `user`.`id` AS `id`,`user`.`mail` AS `mail`,`user`.`password` AS `password`,`user`.`fullname` AS `fullname`,`user`.`user_type` AS `user_type`,`user_type`.`type_name` AS `type_name` from (`user` join `user_type`) where `user`.`user_type` = `user_type`.`id` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_users_list`  AS  select `user`.`id` AS `id`,`user`.`mail` AS `mail`,`user`.`password` AS `password`,`user`.`fullname` AS `fullname`,`user`.`user_type` AS `user_type`,`user_type`.`type_name` AS `type_name` from (`user` join `user_type`) where `user`.`id` = `user_type`.`id` ;
 
 --
 -- Indexes for dumped tables
@@ -593,7 +588,7 @@ ALTER TABLE `item_distributor`
 -- AUTO_INCREMENT for table `labs`
 --
 ALTER TABLE `labs`
-  MODIFY `id_lab` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_lab` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `stock_order`
@@ -611,7 +606,7 @@ ALTER TABLE `stock_source`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

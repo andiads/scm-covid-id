@@ -15,6 +15,7 @@ import com.nusacamp.app.entity.ViewLabsList;
 import com.nusacamp.app.service.LabService;
 import com.nusacamp.app.service.ViewLabsListService;
 
+
 import lombok.RequiredArgsConstructor;
 
 @Controller
@@ -26,6 +27,8 @@ public class LabController {
 
 	private final ViewLabsListService viewLabsListService;
 	
+	private static Lab labs;
+	
 	@GetMapping
 	public String index() {
 		return "redirect:/labs/1";
@@ -33,7 +36,8 @@ public class LabController {
 	
 	@GetMapping(value = "/{pageNumber}")
 	public String listLabs(@PathVariable Integer pageNumber, Model model) {
-		Page<Lab> page = labService.getList(pageNumber);
+
+		Page<ViewLabsList> page = viewLabsListService.getAvailableList(pageNumber);
 
 		int current = page.getNumber() + 1;
 		int begin = Math.max(1, current - 5);
@@ -70,12 +74,14 @@ public class LabController {
     
     @GetMapping("/delete/{idLab}")
     public String deleteLab(@PathVariable int idLab, Model model) {
-    	model.addAttribute("labs", labService.getLab(idLab));
+    	model.addAttribute("labs", this.labService.getLab(idLab));
+    	this.labs = this.labService.getLab(idLab);
     	return "labs/del";
     }
     
-    @PostMapping(value = "/confirmDel")
+    @GetMapping("/confirmDel")
     public String confirmDeleteLab(Lab lab) {
+    	lab.setIdLab(this.labs.getIdLab());
     	labService.deleteLab(lab);
         return "redirect:/labs";
     }

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nusacamp.app.entity.User;
-
 import com.nusacamp.app.entity.UserType;
 import com.nusacamp.app.service.UserService;
 import com.nusacamp.app.service.UserTypeService;
@@ -29,7 +28,7 @@ public class UserController {
 	private final UserService userService;
 	
 	private final UserTypeService userTypeService;
-
+	
 	@GetMapping
 	public String index() {
 		return "redirect:/users/1";

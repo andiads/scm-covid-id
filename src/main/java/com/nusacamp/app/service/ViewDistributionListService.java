@@ -29,7 +29,7 @@ public class ViewDistributionListService {
 
         return getRepository().findAll(pageRequest);
 	}
-
+	
 	public Page<ViewDistributionList> getAvailableList(Integer pageNumber) {
 		PageRequest pageRequest =
 				PageRequest.of(pageNumber - 1, PAGE_SIZE, Sort.Direction.ASC, "id_distribution");
@@ -38,7 +38,6 @@ public class ViewDistributionListService {
 	}
 	
 	public ViewDistributionList getViewDistributionListById(int idDistribution) {
-
 		return viewDistributionListRepository.findById(idDistribution).get();
 	}
 }

@@ -1,26 +1,28 @@
 <!-- sidebar: style can be found in sidebar.less -->
 <section class="sidebar" th:fragment="sidebar">
     <!-- sidebar menu: : style can be found in sidebar.less -->
-    <ul class="sidebar-menu">
+    <ul class="sidebar-menu" sec:authorize="isAuthenticated()">
         <li class="active treeview">
             <a href="#">
                 <i class="glyphicon glyphicon-bookmark"></i> <span>Dashboard</span>
             </a>
         </li>
-        <li class="treeview">
-            <a href="#">
-                <i class="glyphicon glyphicon-user"></i>
-                <span>Users Management</span>
-                <i class="fa fa-angle-left pull-right"></i>
-            </a>
-            <ul class="treeview-menu">
-                <li><a href="/users/add"><i class="glyphicon glyphicon-plus"></i> Add Users</a></li>
-            </ul>
-            <ul class="treeview-menu">
-                <li><a href="/users"><i class="glyphicon glyphicon-search"></i> List Users</a></li>
-            </ul>
-        </li>
-        <li class="treeview">
+        
+	    <li class="treeview" sec:authorize="hasAuthority('ADMIN')">
+	        <a href="#">
+	           <i class="glyphicon glyphicon-user"></i>
+	                <span>Users Management</span>
+	           <i class="fa fa-angle-left pull-right"></i>
+	        </a>
+	        <ul class="treeview-menu">
+	            <li><a href="/users/add"><i class="glyphicon glyphicon-plus"></i> Add Users</a></li>
+	        </ul>
+	        <ul class="treeview-menu">
+	            <li><a href="/users"><i class="glyphicon glyphicon-search"></i> List Users</a></li>
+	        </ul>
+	    </li>
+
+        <li class="treeview" sec:authorize="hasAnyAuthority('ADMIN', 'LAB')">
             <a href="#">
                 <i class="glyphicon glyphicon-flag"></i>
                 <span>Labs Management</span>
@@ -33,7 +35,8 @@
                 <li><a href="/labs"><i class="glyphicon glyphicon-search"></i> List Labs</a></li>
             </ul>
         </li>
-        <li class="treeview">
+        
+        <li class="treeview" sec:authorize="hasAnyAuthority('ADMIN', 'KEMENKES')">
             <a href="#">
                 <i class="glyphicon glyphicon-list-alt"></i>
                 <span>Item Management</span>
@@ -46,23 +49,25 @@
                 <li><a href="/items"><i class="glyphicon glyphicon-search"></i> List Items</a></li>
             </ul>
         </li>
-         <li class="treeview">
+        
+         <li class="treeview" sec:authorize="hasAnyAuthority('ADMIN', 'KEMENKES', 'LAB')">
             <a href="#">
                 <i class="glyphicon glyphicon-send"></i>
                 <span>Distribution</span>
                 <i class="fa fa-angle-left pull-right"></i>
             </a>
-            <ul class="treeview-menu">
-                <li><a href="/distribution/add"><i class="glyphicon glyphicon-plus"></i> Send Distribution</a></li>
-            </ul>
-            <ul class="treeview-menu">
+	        <ul class="treeview-menu" sec:authorize="hasAnyAuthority('ADMIN', 'KEMENKES')">
+	            <li><a href="/distribution/add"><i class="glyphicon glyphicon-plus"></i> Send Distribution</a></li>
+	        </ul>
+            <ul class="treeview-menu" sec:authorize="hasAnyAuthority('ADMIN', 'KEMENKES')">
                 <li><a href="/distribution"><i class="glyphicon glyphicon-search"></i> List Distribution</a></li>
             </ul>
-            <ul class="treeview-menu">
-                <li><a href="/distribution/inbox"><i class="fa fa-inbox"></i> Inbox Distribution</a></li>
-            </ul>
+	        <ul class="treeview-menu" sec:authorize="hasAnyAuthority('ADMIN', 'LAB')">
+	            <li><a href="/distribution/inbox"><i class="fa fa-inbox"></i> Inbox Distribution</a></li>
+	        </ul>
         </li>
-        <li class="treeview">
+        
+        <li class="treeview" sec:authorize="hasAnyAuthority('ADMIN','KEMENKES')">
             <a href="#">
                 <i class="glyphicon glyphicon-bold"></i>
                 <span>Brand</span>
@@ -75,7 +80,8 @@
                 <li><a href="/brand"><i class="glyphicon glyphicon-search"></i> List Brand</a></li>
             </ul>
         </li>
-        <li class="treeview">
+        
+        <li class="treeview" sec:authorize="hasAnyAuthority('ADMIN', 'KEMENKES')">
             <a href="#">
                 <i class="glyphicon glyphicon-random"></i>
                 <span>Category</span>
@@ -88,7 +94,8 @@
                 <li><a href="/category"><i class="glyphicon glyphicon-search"></i> List Category</a></li>
             </ul>
         </li>
-        <li class="treeview">
+        
+        <li class="treeview" sec:authorize="hasAnyAuthority('ADMIN', 'KEMENKES')">
             <a href="#">
                 <i class="glyphicon glyphicon-globe"></i>
                 <span>Distributor</span>
@@ -101,7 +108,8 @@
                 <li><a href="/distributor"><i class="glyphicon glyphicon-search"></i> List Distributor</a></li>
             </ul>
         </li>
-        <li class="treeview">
+        
+        <li class="treeview" sec:authorize="hasAnyAuthority('ADMIN', 'KEMENKES')">
             <a href="#">
                 <i class="fa fa-box-open"></i>
                 <span>Stock Source</span>
@@ -114,7 +122,8 @@
                 <li><a href="/stocksource"><i class="glyphicon glyphicon-search"></i> List Stock Source</a></li>
             </ul>
         </li>
-        <li class="treeview">
+        
+        <li class="treeview" sec:authorize="hasAuthority('ADMIN')">
             <a href="#">
                 <i class="glyphicon glyphicon-plus-sign"></i>
                 <span>User Type</span>
