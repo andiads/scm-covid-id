@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2020 at 10:53 AM
+-- Generation Time: May 21, 2020 at 08:40 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -296,7 +296,8 @@ INSERT INTO `user` (`id`, `mail`, `fullname`, `password`, `user_type`, `created_
 (1, 'nusacamp@scmcovid.gov.id', 'Nusacamp', '$2a$10$cN0obQ0Z0Tv/kz5tfs4nh.b5GHVaGRc7N/wwqfulob.pUUqdS12TS', 1, '2020-05-15 11:12:35', '2020-05-15 11:12:35'),
 (2, 'dummy@kemenkes.gov.id', 'Dummy Kemenkes 1', '$2a$10$1/mBzFWeiMjgSFufQGVBPu.fFDMpNpfiSfZ33w7.FzE/ZDOPrR.hS', 2, '2020-05-19 11:50:04', '2020-05-19 11:50:04'),
 (3, 'lab_jkt@indo.labs.id', 'Lab Jakarta', '$2a$10$Ip3BMfmSE3HSNu.CpKsy3euU5wCdBx83FCBgnL/NlpfFQKtL3X7Gu', 3, '2020-05-19 14:21:05', '2020-05-19 14:21:05'),
-(4, 'lab_bdg@indo.labs.id', 'Lab Bandung', '$2a$10$UsY6B.h28A.bnJD9jpKmkeXeUzeIhGkx/Xihg71KqGUlXe3arA/BS', 3, '2020-05-19 15:37:14', '2020-05-19 15:37:14');
+(4, 'lab_bdg@indo.labs.id', 'Lab Bandung', '$2a$10$UsY6B.h28A.bnJD9jpKmkeXeUzeIhGkx/Xihg71KqGUlXe3arA/BS', 3, '2020-05-19 15:37:14', '2020-05-19 15:37:14'),
+(5, 'dummy2@kemenkes.gov.id', 'Dummy Kemenkes 2', '$2a$10$OBF5ry5NbIiDQrU3LiHUkOlEBhvipxD7zuoMfaqA8WxUwCv1gXFW.', 2, '2020-05-19 16:13:19', '2020-05-19 16:13:19');
 
 -- --------------------------------------------------------
 
@@ -444,7 +445,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `view_labs_list`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_labs_list`  AS  select `labs`.`id_lab` AS `id_lab`,`labs`.`lab_code` AS `lab_code`,`labs`.`lab_name` AS `lab_name`,`labs`.`lab_address` AS `lab_address`,`labs`.`lab_mail` AS `lab_mail`,`labs`.`lab_contact` AS `lab_contact`,`labs`.`shown` AS `shown`,`labs`.`lab_pic` AS `lab_pic`,`labs`.`created_at` AS `created_at`,`labs`.`updated_at` AS `updated_at`,`user`.`fullname` AS `created_by` from (`labs` join `user`) where `labs`.`id_lab` <> 0 ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_labs_list`  AS  select `labs`.`id_lab` AS `id_lab`,`labs`.`lab_code` AS `lab_code`,`labs`.`lab_name` AS `lab_name`,`labs`.`lab_address` AS `lab_address`,`labs`.`lab_mail` AS `lab_mail`,`labs`.`lab_contact` AS `lab_contact`,`labs`.`shown` AS `shown`,`labs`.`lab_pic` AS `lab_pic`,`labs`.`created_at` AS `created_at`,`labs`.`updated_at` AS `updated_at`,`user`.`fullname` AS `created_by` from (`labs` join `user`) where `labs`.`created_by` = `user`.`id` ;
 
 -- --------------------------------------------------------
 
@@ -610,7 +611,7 @@ ALTER TABLE `stock_source`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
