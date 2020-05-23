@@ -20,6 +20,8 @@ public class StockSource {
 	private int idSource;
 	@Column(name="source_name")
 	private String sourceName;
+	@Column(name="source_address")
+	private String sourceAddress;
 	@Column(name="shown")
 	private int shown;
 	
