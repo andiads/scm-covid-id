@@ -26,11 +26,13 @@
                 <tr>
                     <th>ID</th>
                     <th>Source Name</th>
+                    <th>Source Address</th>
                     <th>Action</th>
                 </tr>
                 <tr th:each="row : ${list}">
                     <td th:text="${row.idSource}"></td>
                     <td th:text="${row.sourceName}"></td>
+                    <td th:text="${row.sourceAddress}"></td>
                     <td>
                         <a th:href="${'/stocksource/edit/' + row.idSource}">Edit</a> |
                         <a th:href="${'/stocksource/delete/' + row.idSource}">Delete</a>

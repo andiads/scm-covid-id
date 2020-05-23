@@ -27,29 +27,9 @@
 				method="post">
 				<div class="box-body">
 					<input type="hidden" th:field="*{idStockOrder}" />
-
+					
 					<div class="form-group">
-						<label class="col-sm-1 control-label">Item</label>
-						<div class="col-sm-3">
-							<select class="form-control" th:field="*{idItem}"
-								required="true">
-								<option value="0">Select Item</option>
-								<option th:each="items : ${item}" th:value="${items.idItem}"
-									th:text="${items.itemName}"></option>
-							</select>
-						</div>
-					</div>
-
-					<div class="form-group"></div>
-
-					<div class="form-group">
-						<label class="col-sm-1 control-label" for="qty">Quantity</label>
-						<div class="col-sm-3">
-							<input type="text" required="true" class="form-control"
-								th:field="*{amount}" id="qty" />
-						</div>
-
-						<label class="col-sm-1 control-label">Source</label>
+					<label class="col-sm-1 control-label">Source</label>
 						<div class="col-sm-3">
 							<select class="form-control" th:field="*{sourcePoint}" required="true">
 								<option value="0">Select Source</option>
@@ -67,9 +47,33 @@
 							</select>
 						</div>
 					</div>
-
+					
 					<div class="form-group"></div>
-
+				
+					<div class="form-group">
+						<label class="col-sm-1 control-label">Item</label>
+						<div class="col-sm-3">
+							<select class="form-control" th:field="*{idItem}"
+								required="true">
+								<option value="0">Select Item</option>
+								<option th:each="items : ${item}" th:value="${items.idItem}"
+									th:text="${items.itemName}"></option>
+							</select>
+						</div>
+						
+						<label class="col-sm-1 control-label" for="qty">Quantity</label>
+						<div class="col-sm-3">
+							<input type="text" required="true" class="form-control"
+								th:field="*{amount}" id="qty" />
+						</div>
+						
+						<div class="col-sm-3">
+						<b>items left on selected stock source</b><br/>
+							<h4>
+								<span class="label label-info" th:text="123"></span>
+							</h4>
+						</div>
+					</div>	
 
 				</div>
 				<div class="box-footer">

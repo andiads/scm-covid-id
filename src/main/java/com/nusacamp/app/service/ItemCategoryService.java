@@ -43,5 +43,10 @@ public class ItemCategoryService {
 	public ItemCategory getItemCategory(int idCategory) {
 		return itemCategoryRepo.findById(idCategory).get();
 	}
+	
+	public void deleteCategory(ItemCategory itemCategory) {
+		itemCategory.setShown(0);
+		this.itemCategoryRepo.save(itemCategory);
+	}
 
 }

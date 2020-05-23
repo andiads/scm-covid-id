@@ -43,5 +43,10 @@ public class ItemBrandService {
 	public ItemBrand getItemBrand(int idBrand) {
 		return itemBrandRepo.findById(idBrand).get();
 	}
+	
+	public void deleteBrand(ItemBrand itemBrand) {
+		itemBrand.setShown(0);
+		this.itemBrandRepo.save(itemBrand);
+	}
 
 }

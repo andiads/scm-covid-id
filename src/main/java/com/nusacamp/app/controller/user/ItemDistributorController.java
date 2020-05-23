@@ -8,8 +8,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.nusacamp.app.entity.ItemCategory;
 import com.nusacamp.app.entity.ItemDistributor;
+import com.nusacamp.app.entity.ViewItemDistributor;
 import com.nusacamp.app.service.ItemDistributorService;
+import com.nusacamp.app.service.ViewItemDistributorService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -19,6 +22,8 @@ import lombok.RequiredArgsConstructor;
 public class ItemDistributorController {
 
 	private final ItemDistributorService itemDistribService;
+	private final ViewItemDistributorService viewItemDistributorService;
+	private static ItemDistributor distributor;
 	
 	@GetMapping
 	public String index() {
@@ -27,7 +32,8 @@ public class ItemDistributorController {
 	
 	@GetMapping(value = "/{pageNumber}")
 	public String listUser(@PathVariable Integer pageNumber, Model model) {
-		Page<ItemDistributor> page = itemDistribService.getList(pageNumber);
+//		Page<ItemDistributor> page = itemDistribService.getList(pageNumber);
+		Page<ViewItemDistributor> page = viewItemDistributorService.getList(pageNumber);
 
 		int current = page.getNumber() + 1;
 		int begin = Math.max(1, current - 5);
@@ -59,5 +65,19 @@ public class ItemDistributorController {
 		model.addAttribute("itemdis", itemDistribService.getItemDistributor(idDistributor));
 		return "itemdistributor/form";
 	}
+	
+	@GetMapping("/delete/{idDistributor}")
+    public String deleteDistributor(@PathVariable int idDistributor, Model model) {
+    	model.addAttribute("itemdis", this.itemDistribService.getItemDistributor(idDistributor));
+    	this.distributor = this.itemDistribService.getItemDistributor(idDistributor);
+    	return "itemdistributor/del";
+    }
+    
+    @GetMapping("/confirmDel")
+    public String confirmDeleteDistributor(ItemDistributor itemDistributor) {
+    	distributor.setIdDistributor(this.distributor.getIdDistributor());
+    	itemDistribService.deleteDistributor(distributor);
+        return "redirect:/distributor";
+    }
 	
 }

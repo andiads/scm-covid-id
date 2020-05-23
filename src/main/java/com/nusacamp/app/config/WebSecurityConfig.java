@@ -45,6 +45,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				"/webjars/**").permitAll()
 		.antMatchers("/bootstrap/**", "/dist/**", "/plugins/**").permitAll()
         .antMatchers("*").hasRole("ADMIN")
+        .antMatchers("/users/**","/usertype/**").hasAuthority("ADMIN")
+        .antMatchers("/#").hasAnyAuthority("ADMIN","KEMENKES","LAB","BNPB")
+        .antMatchers("/items/**").hasAnyAuthority("ADMIN","KEMENKES")
+        .antMatchers("/distribution/inbox/").hasAnyAuthority("ADMIN","LAB")
+        .antMatchers("/distribution/add").hasAnyAuthority("ADMIN","KEMENKES")
+        .antMatchers("/labs/add").hasAnyAuthority("ADMIN","LAB")
+        .antMatchers("/stock_item/**", "/stock_item/add", "/stock_item/list").hasAnyAuthority("ADMIN","KEMENKES","BNPB")
+        .antMatchers("/brand/**","/category/**","/distributor/**","/stocksource/**").hasAnyAuthority("ADMIN","KEMENKES")
 		.anyRequest().authenticated()
         .and()
     .formLogin()
@@ -56,7 +64,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     .logout()
         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
         .logoutSuccessUrl("/login")
-        .permitAll();
+        .permitAll()
+        .and()
+        .exceptionHandling().accessDeniedPage("/403");
 	}
 	
 	@Bean
@@ -76,10 +86,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		provider.setUserDetailsService(userDetailsService);
 		return provider;
 	}
-	//@Override
-	//protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-	//	auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());		
-	//}
+	
 	
 
 }

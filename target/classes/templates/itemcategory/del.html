@@ -1,0 +1,46 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-4.dtd">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout">
+<head>
+    <title>Delete Category</title>
+</head>
+<body>
+<section layout:fragment="header">
+    <h1>Delete Category?</h1>
+    <ol class="breadcrumb">
+        <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li class="active">Registration Client</li>
+    </ol>
+</section>
+<div layout:fragment="content">
+    <div class="box">
+        <div class="box-header with-border">
+            <div class="box-tools pull-right">
+                <a href="/category" type="button" class="btn btn-box-tool"><i class="fa fa-list-ul"></i></a>
+            </div>
+        </div>
+        <form data-toggle="validator" role="form" th:object="${itemcat}" th:action="@{/category/confirmDel}" method="get">
+            <div class="box-body">
+                <input type="hidden" th:field="*{idCategory}"/>
+				
+                <div class="form-group" style="display:none">
+                    <label for="categoryCode">Category Code</label>
+                    <input type="text" required="true" class="form-control" th:field="*{categoryCode}" id="categoryCode" />
+                </div>
+                
+                <div class="form-group"></div>
+                
+                <div class="form-group">
+                    <label for="categoryName">Category Name</label>
+                    <input type="text" readonly required="true" class="form-control" th:field="*{categoryName}" id="categoryName" />
+                </div>
+            </div>
+            <div class="box-footer">
+                <button class="btn btn-primary" type="submit">Delete</button>
+                <a href="/category" class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

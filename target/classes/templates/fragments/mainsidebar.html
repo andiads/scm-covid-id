@@ -50,6 +50,20 @@
             </ul>
         </li>
         
+        <li class="treeview" sec:authorize="hasAnyAuthority('ADMIN', 'KEMENKES', 'BNPB')">
+            <a href="#">
+                <i class="fa fa-boxes"></i>
+                <span>Stock Items</span>
+                <i class="fa fa-angle-left pull-right"></i>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="/stock_item/add"><i class="glyphicon glyphicon-plus"></i> Add Stock Item</a></li>
+            </ul>
+            <ul class="treeview-menu">
+                <li><a href="/stock_item"><i class="glyphicon glyphicon-search"></i> List Stock Items</a></li>
+            </ul>
+        </li>
+        
          <li class="treeview" sec:authorize="hasAnyAuthority('ADMIN', 'KEMENKES', 'LAB')">
             <a href="#">
                 <i class="glyphicon glyphicon-send"></i>
@@ -111,7 +125,7 @@
         
         <li class="treeview" sec:authorize="hasAnyAuthority('ADMIN', 'KEMENKES')">
             <a href="#">
-                <i class="fa fa-box-open"></i>
+                <i class="fa fa-warehouse"></i>
                 <span>Stock Source</span>
                 <i class="fa fa-angle-left pull-right"></i>
             </a>

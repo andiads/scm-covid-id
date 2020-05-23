@@ -32,7 +32,7 @@
 						<label class="col-sm-1 control-label">Item</label>
 						<div class="col-sm-3">
 							<select class="form-control" th:field="*{idItem}"
-								required="true" disabled>
+								required="true" >
 								<option value="0">Select Item</option>
 								<option th:each="items : ${item}" th:value="${items.idItem}"
 									th:text="${items.itemName}"></option>
@@ -56,12 +56,12 @@
 						<label class="col-sm-1 control-label" for="qty">Quantity</label>
 						<div class="col-sm-3">
 							<input type="text" required="true" class="form-control"
-								th:field="*{amount}" id="qty" disabled/>
+								th:field="*{amount}" id="qty" />
 						</div>
 
 						<label class="col-sm-1 control-label">Source</label>
 						<div class="col-sm-3">
-							<select class="form-control" th:field="*{sourcePoint}" required="true" disabled>
+							<select class="form-control" th:field="*{sourcePoint}" required="true" >
 								<option value="0">Select Source</option>
 								<option th:each="sources : ${source} " th:value="${sources.idSource}"
 									th:text="${sources.sourceName}"></option>
@@ -70,7 +70,7 @@
 
 						<label class="col-sm-1 control-label">Destination</label>
 						<div class="col-sm-3">
-							<select class="form-control" th:field="*{endPoint}" required="true" disabled>
+							<select class="form-control" th:field="*{endPoint}" required="true" style="display:none">
 								<option value="0">Select Lab</option>
 								<option th:each="labs : ${lab} " th:value="${labs.idLab}"
 									th:text="${labs.labName}"></option>

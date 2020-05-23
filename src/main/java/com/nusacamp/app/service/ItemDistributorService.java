@@ -42,4 +42,9 @@ public class ItemDistributorService {
 	public ItemDistributor getItemDistributor(int idDistributor) {
 		return itemDistributorRepo.findById(idDistributor).get();
 	}
+	
+	public void deleteDistributor(ItemDistributor itemDistributor) {
+		itemDistributor.setShown(0);
+		this.itemDistributorRepo.save(itemDistributor);
+	}
 }

@@ -45,6 +45,7 @@ public class StockOrderService {
 		public void confirmStockOrder(StockOrder stockOrder) {
 			Timestamp ts = new Timestamp(new java.util.Date().getTime());
 			stockOrder.setStockArriveTime(ts.toString().substring(0, 18));
+			stockOrder.setUpdatedAt(ts.toString().substring(0, 18));
 			stockOrder.setShown(1);
 			this.stockOrderRepo.save(stockOrder);
 		}

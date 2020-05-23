@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 19, 2020 at 10:53 AM
+-- Generation Time: May 23, 2020 at 04:53 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.3
 
@@ -21,30 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `covid`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `distribution_transaction`
---
-
-CREATE TABLE `distribution_transaction` (
-  `id_transaction` int(255) NOT NULL,
-  `id_item` int(11) NOT NULL,
-  `id_lab` int(11) NOT NULL,
-  `qty` int(255) NOT NULL,
-  `send_at` datetime NOT NULL DEFAULT current_timestamp(),
-  `accepted` int(1) NOT NULL,
-  `accepted_at` datetime DEFAULT current_timestamp(),
-  `id_distribution` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `distribution_transaction`
---
-
-INSERT INTO `distribution_transaction` (`id_transaction`, `id_item`, `id_lab`, `qty`, `send_at`, `accepted`, `accepted_at`, `id_distribution`) VALUES
-(1, 1, 1, 100, '2020-05-17 23:49:53', 1, '2020-05-17 23:49:53', 0);
 
 -- --------------------------------------------------------
 
@@ -116,7 +92,7 @@ INSERT INTO `item` (`id_item`, `item_code`, `item_name`, `item_packaging`, `item
 (1, '450', 'Covid-19 Medicine', 'Pack', 1, 1, '2020-05-15 23:57:26', '2020-05-15 23:57:26', 1, 1, 1, 1, NULL, NULL),
 (2, '460', 'DITHIOTHREITOL,5G', 'Bottle', 1, 1, '2020-05-16 00:17:26', '2020-05-16 00:17:26', 1, 1, 1, 2, NULL, NULL),
 (3, '121', 'degiherlambang', 'Bottle', 1, 1, '2020-05-16 16:25:25', '2020-05-16 16:25:25', 1, 1, 2, 4, NULL, NULL),
-(4, '555', 'Covid-19 Medicine', 'Bottle', 1, 1, '2020-05-16 18:31:09', '2020-05-16 18:31:09', 1, 1, 1, 3, NULL, NULL),
+(4, '555', 'Swap Test ToolKit', 'Box', 1, 2, '2020-05-16 18:31:09', '2020-05-16 18:31:09', 1, 1, 3, 1, NULL, NULL),
 (5, '11', 'Positif Kontrol RP', 'Tube', 1, 2, '2020-05-16 18:34:16', '2020-05-16 18:34:16', 1, 1, 1, 3, NULL, NULL);
 
 -- --------------------------------------------------------
@@ -163,7 +139,8 @@ CREATE TABLE `item_category` (
 INSERT INTO `item_category` (`id_category`, `category_name`, `category_code`, `shown`) VALUES
 (1, 'Consumable', '01', 1),
 (2, 'Non-Consumable', '02', 1),
-(3, 'Consumable/Non-Consumable', '03', 1);
+(3, 'Consumable/Non-Consumable', '03', 1),
+(4, 'Medical Toolkit', '04', 1);
 
 -- --------------------------------------------------------
 
@@ -187,7 +164,7 @@ INSERT INTO `item_distributor` (`id_distributor`, `distributor_name`, `distribut
 (2, 'US Corp', '222', 1),
 (3, 'China medic', '224', 1),
 (4, 'British Embasy', '225', 1),
-(5, 'Viking Legion', '225', 1);
+(5, 'Viking Legion', '225', 0);
 
 -- --------------------------------------------------------
 
@@ -226,6 +203,32 @@ INSERT INTO `labs` (`id_lab`, `lab_code`, `password`, `lab_name`, `lab_address`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `stock_item`
+--
+
+CREATE TABLE `stock_item` (
+  `id_stock_item` int(11) NOT NULL,
+  `id_item` int(11) NOT NULL,
+  `id_source` int(11) NOT NULL,
+  `amount` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `shown` int(11) NOT NULL DEFAULT 1
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `stock_item`
+--
+
+INSERT INTO `stock_item` (`id_stock_item`, `id_item`, `id_source`, `amount`, `created_at`, `updated_at`, `shown`) VALUES
+(1, 2, 1, 200, '2020-05-23 13:25:40', '2020-05-23 14:10:46', 1),
+(2, 2, 0, 0, '2020-05-23 13:35:42', '2020-05-23 13:35:42', 0),
+(3, 1, 1, 651, '2020-05-23 13:42:14', '2020-05-23 14:11:01', 1),
+(4, 4, 1, 500, '2020-05-23 14:48:20', '2020-05-23 14:48:20', 1);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `stock_order`
 --
 
@@ -243,15 +246,6 @@ CREATE TABLE `stock_order` (
   `shown` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `stock_order`
---
-
-INSERT INTO `stock_order` (`id_sto`, `id_item`, `source_point`, `end_point`, `amount`, `status`, `sto_send_time`, `sto_arrive_time`, `created_at`, `updated_at`, `shown`) VALUES
-(1, 1, 1, 5, 200, 0, '2020-05-18 15:43:23', NULL, '2020-05-18 15:43:23', '2020-05-18 15:43:23', 1),
-(2, 2, 1, 4, 300, 2, '2020-05-18 15:52:08', '2020-05-18 17:42:04', '2020-05-18 15:52:08', '2020-05-18 15:52:08', 1),
-(3, 0, 0, 0, 0, 0, '2020-05-18 18:06:32', NULL, '2020-05-18 18:06:32', '2020-05-18 18:06:32', 0);
-
 -- --------------------------------------------------------
 
 --
@@ -261,6 +255,7 @@ INSERT INTO `stock_order` (`id_sto`, `id_item`, `source_point`, `end_point`, `am
 CREATE TABLE `stock_source` (
   `id_source` int(100) NOT NULL,
   `source_name` varchar(100) NOT NULL,
+  `source_address` text NOT NULL,
   `shown` int(11) NOT NULL DEFAULT 1
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -268,9 +263,9 @@ CREATE TABLE `stock_source` (
 -- Dumping data for table `stock_source`
 --
 
-INSERT INTO `stock_source` (`id_source`, `source_name`, `shown`) VALUES
-(1, 'KANTOR PUSAT, JAKARTA', 1),
-(2, 'KANTOR PUSAT, TANGERANG', 1);
+INSERT INTO `stock_source` (`id_source`, `source_name`, `source_address`, `shown`) VALUES
+(1, 'KANTOR PUSAT, JKT', 'Lebak Bulus, Jakarta Selatan.', 1),
+(2, 'KANTOR PUSAT, TANGSEL', 'Serpong, BSD. Tangerang Selatan', 1);
 
 -- --------------------------------------------------------
 
@@ -296,7 +291,8 @@ INSERT INTO `user` (`id`, `mail`, `fullname`, `password`, `user_type`, `created_
 (1, 'nusacamp@scmcovid.gov.id', 'Nusacamp', '$2a$10$cN0obQ0Z0Tv/kz5tfs4nh.b5GHVaGRc7N/wwqfulob.pUUqdS12TS', 1, '2020-05-15 11:12:35', '2020-05-15 11:12:35'),
 (2, 'dummy@kemenkes.gov.id', 'Dummy Kemenkes 1', '$2a$10$1/mBzFWeiMjgSFufQGVBPu.fFDMpNpfiSfZ33w7.FzE/ZDOPrR.hS', 2, '2020-05-19 11:50:04', '2020-05-19 11:50:04'),
 (3, 'lab_jkt@indo.labs.id', 'Lab Jakarta', '$2a$10$Ip3BMfmSE3HSNu.CpKsy3euU5wCdBx83FCBgnL/NlpfFQKtL3X7Gu', 3, '2020-05-19 14:21:05', '2020-05-19 14:21:05'),
-(4, 'lab_bdg@indo.labs.id', 'Lab Bandung', '$2a$10$UsY6B.h28A.bnJD9jpKmkeXeUzeIhGkx/Xihg71KqGUlXe3arA/BS', 3, '2020-05-19 15:37:14', '2020-05-19 15:37:14');
+(4, 'lab_bdg@indo.labs.id', 'Lab Bandung', '$2a$10$UsY6B.h28A.bnJD9jpKmkeXeUzeIhGkx/Xihg71KqGUlXe3arA/BS', 3, '2020-05-19 15:37:14', '2020-05-19 15:37:14'),
+(5, 'dummy2@kemenkes.gov.id', 'Dummy Kemenkes 2', '$2a$10$OBF5ry5NbIiDQrU3LiHUkOlEBhvipxD7zuoMfaqA8WxUwCv1gXFW.', 2, '2020-05-19 16:13:19', '2020-05-19 16:13:19');
 
 -- --------------------------------------------------------
 
@@ -373,6 +369,42 @@ CREATE TABLE `view_items_list` (
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `view_item_brand_list`
+-- (See below for the actual view)
+--
+CREATE TABLE `view_item_brand_list` (
+`id_brand` int(11)
+,`brand_code` varchar(10)
+,`brand_name` varchar(64)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `view_item_category_list`
+-- (See below for the actual view)
+--
+CREATE TABLE `view_item_category_list` (
+`id_category` int(11)
+,`category_name` varchar(64)
+,`category_code` varchar(10)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `view_item_distributor_list`
+-- (See below for the actual view)
+--
+CREATE TABLE `view_item_distributor_list` (
+`id_distributor` int(11)
+,`distributor_name` varchar(64)
+,`distributor_code` varchar(10)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Stand-in structure for view `view_labs_list`
 -- (See below for the actual view)
 --
@@ -388,6 +420,22 @@ CREATE TABLE `view_labs_list` (
 ,`created_at` datetime
 ,`updated_at` datetime
 ,`created_by` varchar(200)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `view_stock_item`
+-- (See below for the actual view)
+--
+CREATE TABLE `view_stock_item` (
+`id` int(11)
+,`item_name` varchar(255)
+,`source_name` varchar(100)
+,`amount` int(11)
+,`shown` int(11)
+,`created_at` timestamp
+,`updated_at` timestamp
 );
 
 -- --------------------------------------------------------
@@ -440,11 +488,47 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- --------------------------------------------------------
 
 --
+-- Structure for view `view_item_brand_list`
+--
+DROP TABLE IF EXISTS `view_item_brand_list`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_item_brand_list`  AS  select `item_brand`.`id_brand` AS `id_brand`,`item_brand`.`brand_code` AS `brand_code`,`item_brand`.`brand_name` AS `brand_name` from `item_brand` where `item_brand`.`shown` = '1' ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `view_item_category_list`
+--
+DROP TABLE IF EXISTS `view_item_category_list`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_item_category_list`  AS  select `item_category`.`id_category` AS `id_category`,`item_category`.`category_name` AS `category_name`,`item_category`.`category_code` AS `category_code` from `item_category` where `item_category`.`shown` = '1' ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `view_item_distributor_list`
+--
+DROP TABLE IF EXISTS `view_item_distributor_list`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_item_distributor_list`  AS  select `item_distributor`.`id_distributor` AS `id_distributor`,`item_distributor`.`distributor_name` AS `distributor_name`,`item_distributor`.`distributor_code` AS `distributor_code` from `item_distributor` where `item_distributor`.`shown` = '1' ;
+
+-- --------------------------------------------------------
+
+--
 -- Structure for view `view_labs_list`
 --
 DROP TABLE IF EXISTS `view_labs_list`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_labs_list`  AS  select `labs`.`id_lab` AS `id_lab`,`labs`.`lab_code` AS `lab_code`,`labs`.`lab_name` AS `lab_name`,`labs`.`lab_address` AS `lab_address`,`labs`.`lab_mail` AS `lab_mail`,`labs`.`lab_contact` AS `lab_contact`,`labs`.`shown` AS `shown`,`labs`.`lab_pic` AS `lab_pic`,`labs`.`created_at` AS `created_at`,`labs`.`updated_at` AS `updated_at`,`user`.`fullname` AS `created_by` from (`labs` join `user`) where `labs`.`id_lab` <> 0 ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_labs_list`  AS  select `labs`.`id_lab` AS `id_lab`,`labs`.`lab_code` AS `lab_code`,`labs`.`lab_name` AS `lab_name`,`labs`.`lab_address` AS `lab_address`,`labs`.`lab_mail` AS `lab_mail`,`labs`.`lab_contact` AS `lab_contact`,`labs`.`shown` AS `shown`,`labs`.`lab_pic` AS `lab_pic`,`labs`.`created_at` AS `created_at`,`labs`.`updated_at` AS `updated_at`,`user`.`fullname` AS `created_by` from (`labs` join `user`) where `labs`.`created_by` = `user`.`id` ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `view_stock_item`
+--
+DROP TABLE IF EXISTS `view_stock_item`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `view_stock_item`  AS  select `stock_item`.`id_stock_item` AS `id`,`item`.`item_name` AS `item_name`,`stock_source`.`source_name` AS `source_name`,`stock_item`.`amount` AS `amount`,`stock_item`.`shown` AS `shown`,`stock_item`.`created_at` AS `created_at`,`stock_item`.`updated_at` AS `updated_at` from ((`stock_item` join `item`) join `stock_source`) where `stock_item`.`id_item` = `item`.`id_item` and `stock_item`.`id_source` = `stock_source`.`id_source` ;
 
 -- --------------------------------------------------------
 
@@ -467,12 +551,6 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 -- Indexes for dumped tables
 --
-
---
--- Indexes for table `distribution_transaction`
---
-ALTER TABLE `distribution_transaction`
-  ADD PRIMARY KEY (`id_transaction`);
 
 --
 -- Indexes for table `flyway_schema_history`
@@ -518,6 +596,12 @@ ALTER TABLE `labs`
   ADD PRIMARY KEY (`id_lab`);
 
 --
+-- Indexes for table `stock_item`
+--
+ALTER TABLE `stock_item`
+  ADD PRIMARY KEY (`id_stock_item`);
+
+--
 -- Indexes for table `stock_order`
 --
 ALTER TABLE `stock_order`
@@ -553,12 +637,6 @@ ALTER TABLE `user_type`
 --
 
 --
--- AUTO_INCREMENT for table `distribution_transaction`
---
-ALTER TABLE `distribution_transaction`
-  MODIFY `id_transaction` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
 -- AUTO_INCREMENT for table `id_category`
 --
 ALTER TABLE `id_category`
@@ -580,7 +658,7 @@ ALTER TABLE `item_brand`
 -- AUTO_INCREMENT for table `item_category`
 --
 ALTER TABLE `item_category`
-  MODIFY `id_category` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_category` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `item_distributor`
@@ -595,10 +673,16 @@ ALTER TABLE `labs`
   MODIFY `id_lab` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `stock_item`
+--
+ALTER TABLE `stock_item`
+  MODIFY `id_stock_item` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `stock_order`
 --
 ALTER TABLE `stock_order`
-  MODIFY `id_sto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_sto` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `stock_source`
@@ -610,7 +694,7 @@ ALTER TABLE `stock_source`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
